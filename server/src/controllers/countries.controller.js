@@ -1,5 +1,5 @@
 
-const { Country } = require('../db')
+const { Country, Activity} = require('../db')
 const axios = require('axios');
 
 const getCountries = async (req, res) => {
@@ -47,7 +47,9 @@ const getCountries = async (req, res) => {
 const getCountrieById = async (req, res) => {
     const { id } = req.params;
     try {
-        const countryOne = await Country.findOne({ where: { id } });
+        const countryOne = await Country.findByPk(id, {
+            include : Activity
+        });
 
         if (!countryOne) { return res.status(404).json({ error: "Country Not found" }) };
 
