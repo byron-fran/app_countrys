@@ -1,44 +1,33 @@
-
+const Sequelize = require('sequelize');
 const { Country, Activity} = require('../db')
 const axios = require('axios');
 
 const getCountries = async (req, res) => {
-    const url = 'http://localhost:5000/countries';
+    const {name} = req.query;
+
 
     try {
-
-        const { data } = await axios(url);
-        if (!data) { return res.status(404).json({ error: "not Found" }) }
-        for (let i = 0; i < data.length; i++) {
-            let countryInfo = {
-                name: data[i].name.official,
-                id: data[i].cca3,
-                area: data[i].area,
-                image: data[i].flags.png,
-                population: data[i].population,
-                continents: data[i].continents[0],
-                subregion: data[i].subregion,
-                capital: data[i].capital
-            }
-
-            await Country.findOrCreate({
-                where: {
-                    name: countryInfo.name,
-                    id: countryInfo.id,
-                    area: countryInfo.area,
-                    image: countryInfo.image,
-                    population: countryInfo.population,
-                    continents: countryInfo.continents,
-                    subregion: countryInfo.subregion === undefined ? 'null' : countryInfo.subregion,
-                    capital: countryInfo.capital === undefined ? 'null' : countryInfo.capital[0]  //&& countryInfo.capital[0],
-                },
-
+        if(name){
+            const countriesFind = await Country.findAll({
+                where : {
+                    name : {
+                        [Sequelize.Op.iLike]: `%${name}%`
+                    }
+                }
             });
+            if (!countriesFind.length) return res.status(404).json({ country: "Not Found" });
+            return res.status(200).json({ success: countriesFind });
+        }
+        else{
 
+        const countries = await Country.findAll();
+
+        if(!countries){ return res.status(404).json({error : "not found"})}
+        
+        return res.status(200).json({ success: countries})
         }
         //Obtener todos los paises 
-        const countries = await Country.findAll();
-        return res.status(200).json({ success: countries })
+  
     }
     catch (error) { return res.status(500).json({ error: error.message }) }
 
@@ -59,7 +48,7 @@ const getCountrieById = async (req, res) => {
 
 };
 
-const searchCountryByaName = async () => {
+const searchCountryByaName = async (req, res) => {
     const { name } = req.query
     console.log(name)
     return res.status(200).json({

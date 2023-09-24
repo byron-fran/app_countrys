@@ -15,7 +15,7 @@ const createActivity = async (req, res) => {
         });
         if(countryId){
             const country = await Country.findByPk(countryId);
-            if(!country){ return res.status(404).json({error : error.message})};
+            if(!country){ return res.status(404).json({error : "Not found"})};
             await newActivity.addCountry(country)
         }
         return res.status(200).json({ success: newActivity })
