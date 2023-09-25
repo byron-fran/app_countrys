@@ -17,7 +17,7 @@ const saveCountries = async () => {
                 subregion: data[i].subregion,
                 capital: data[i].capital
             }
-
+            //Guarda los datos
             await Country.findOrCreate({
                 where: {
                     name: countryInfo.name,

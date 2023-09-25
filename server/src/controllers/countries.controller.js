@@ -4,8 +4,7 @@ const axios = require('axios');
 
 const getCountries = async (req, res) => {
     const {name} = req.query;
-
-
+    
     try {
         if(name){
             const countriesFind = await Country.findAll({

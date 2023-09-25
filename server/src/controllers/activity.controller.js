@@ -3,7 +3,7 @@ const { Activity, Country  } = require('../db')
 const createActivity = async (req, res) => {
     
     const { name, difficulty, duration, season, countryId } = req.body;
-    console.log(countryId)
+   // console.log(countryId)
     try {
         if (!req.body) { return res.status(404).json({ error: "not found" }) };
         if (difficulty > 5 || difficulty <= 0) { return res.status(400).json({ error: "difficulty no valid" }) };
