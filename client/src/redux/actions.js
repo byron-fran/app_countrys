@@ -1,4 +1,12 @@
-import { LOAD_COUNTRIES, SEARCH_COUNTRIES, DETAIL_COUNTRY, ORDER_lOWEST, MAJOR_ORDER, POPULATION_LOWEST, POPULATION_MAJOR } from "../types/types";
+import {
+    LOAD_COUNTRIES,
+    SEARCH_COUNTRIES,
+    DETAIL_COUNTRY,
+    ORDER_BY_NAME,
+    FILERT_BY_CONTINENT,
+    ORDER_BY_POPULATION
+
+} from "../types/types";
 
 import axios from 'axios'
 
@@ -39,7 +47,7 @@ export const detailCountry = searchDeatil => {
                 type: DETAIL_COUNTRY,
                 payload: data
             });
-        
+
         }
         catch (error) {
             console.log(error)
@@ -47,37 +55,39 @@ export const detailCountry = searchDeatil => {
     }
 };
 
-export const countriesOrderMajor =() => {
-    return dispatch =>{
+export const orderByName = order => {
+    return async dispatch => {
         try{
+            const url = `http://localhost:3001/countriesOrders/${order}`;
+            const {data} = await axios(url);
             return dispatch({
-                type : MAJOR_ORDER
+                type : ORDER_BY_NAME,
+                payload : data.OrderByName
             })
         }
-        catch(error){
-            console.log(error)
-        }    
-    }
-};
-export const countriesOrderLowest = () => {
-    return dispatch => {
-        return dispatch({
-            type  : ORDER_lOWEST,
-        })
+        catch(error) { console.log(error.message) }
     }
 }
-export const populationMajor = () => {
-    return dispatch => {
-        return dispatch({
-            type : POPULATION_MAJOR
-        })
+export const orderByPopulation = name => {
+    return async dispatch => {
+        const url = `http://localhost:3001/countriesPopulation/${name}`
+        try{
+            const {data} = await axios(url);
+            return dispatch({
+                type : ORDER_BY_POPULATION,
+                payload : data.countriesByPopulation 
+            })
+        }
+        catch(error) { console.log(error.message)}
     }
-};
-
-export const populationLowest = () => {
-    return dispatch => {
+}
+export const filterByContinent = (continent) => {
+    return async dispatch =>{
+        const url = `http://localhost:3001/countriesFilters/${continent}`
+        const {data} = await axios(url);
         return dispatch({
-            type : POPULATION_LOWEST
+            type : FILERT_BY_CONTINENT,
+            payload : data.continentsByContinents
         })
-    }
+    } 
 }

@@ -1,6 +1,10 @@
 const { Router } = require("express");
 const  {getCountries, getCountrieById, searchCountryByaName} = require('../controllers/countries.controller')
 const {createActivity, getActivity,} = require('../controllers/activity.controller')
+const {filterByContinent, orderByName,orderByPopulation } = require('../controllers/filtres')
+
+
+
 const router = Router();
 
 router.get('/countries', getCountries);
@@ -11,5 +15,8 @@ router.get('/countries/',searchCountryByaName);
 
 router.post('/activities', createActivity);
 router.get('/activities/:id', getActivity);
-
+//Filters
+router.get('/countriesFilters/:name?', filterByContinent);
+router.get('/countriesOrders/:name?', orderByName);
+router.get('/countriesPopulation/:name?', orderByPopulation)
 module.exports = router;

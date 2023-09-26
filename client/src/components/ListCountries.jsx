@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector,  } from "react-redux"
 import CardCountry from "./CardCountry";
 import Filters from "./Filters";
@@ -8,7 +8,9 @@ import { generarId } from "../helpers";
 const ListCountries = () => {
  const countries = useSelector(state => state.listCountries);
 
- 
+  useEffect(() => {
+    
+  }, [countries])
     const [currentPage, setCurrentPage] = useState(1);
     if(countries === undefined || countries.length <= 0) return null;
     // if(countriesSearch === undefined || countriesSearch.length <= 0) return null;

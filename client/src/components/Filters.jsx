@@ -1,54 +1,68 @@
+/* eslint-disable no-case-declarations */
 import { useSelector, useDispatch } from "react-redux";
-import { countriesOrderMajor,countriesOrderLowest, populationLowest, populationMajor } from "../redux/actions";
+import { orderByName,
+    filterByContinent,orderByPopulation, loadCountries} from "../redux/actions";
 import { useEffect } from "react";
 
 
 const Filters = () => {
     const dispatch = useDispatch();
-
-
-    // const orderMayor = (e) => {
-        
-      
-
-    // };
-    // const orderMenor = (e) => {
-    //     console.log(e.target.value)
-    // }
-
-
-    useEffect(() => {
+    const countries = useSelector(state => state.listCountries);
+   useEffect(() => {
 
     }, [])
-    const handleValor = (e)=> {
-        switch(e.target.value){
-            case 'ascendente':
-                dispatch(countriesOrderMajor())
-                break
-             case 'descenetente':
-                dispatch(countriesOrderLowest())
-                break
-             case  'mayor':
-                dispatch(populationMajor())
-                break
-             case 'menor':
-                dispatch(populationLowest())
-                break      
-            default:
-                return
-        }
+    if(countries === undefined || countries.length <= 0) return null;
+
+
+  
+    const handleOrderByName = (e)=> {
+        const order = e.target.value;
+        dispatch(orderByName(order))
     };
 
+    const handlerContinent = (e) => {
+        const continent = e.target.value;
+        dispatch(filterByContinent(continent));
+    }
+    const handlerByPopulation = e => {
+        const population = e.target.value;
+        dispatch(orderByPopulation(population))
+    };
+    const handleReserOrder = () => {
+        dispatch(loadCountries())
+    }
   return (
     <div>
-     
         <div>
-            <select onChange={handleValor}>
-                <option value="">Ordenar Por</option>
-                <option  value="ascendente">Ascendente</option>
-                <option  value="descenetente">Descendente</option>
-                <option value="mayor">Poblacion Mayor</option>
-                <option value="menor">Poblacoion Menor</option>
+            <button onClick={handleReserOrder}>Todos</button>
+        </div>
+        <div>
+            <label htmlFor="orderName">Order por nombre</label>
+            <select onChange={ handleOrderByName} id="orderName">
+              
+                <option  value="Ascenedente">Ascendente</option>
+                <option  value="Descendente">Descendente</option>
+  
+            </select>
+        </div>
+        <div>
+            <label htmlFor="orderPopulation">Ordernar por Poblacion</label>
+            <select onChange={handlerByPopulation} name="orderPopulation" id="orderPopulation">
+                <option value="Mayor">Poblacion Mayor</option>
+                <option value="Menor">Poblacoion Menor</option>
+            </select>
+              
+        </div>
+        <div>
+            <label htmlFor="orderContinent">Ordernar por continente</label>
+        <select onChange={handlerContinent} id="orderContinent">
+                <option value="Africa">Africa</option>
+                <option  value="Europe">Europe</option>
+                <option value="South America">South America</option>
+                <option value="Oceania">Oceania</option>
+                <option value="Asia">Asia</option>
+                <option value="North America">North America</option>
+                <option value="Antarctica">Antarctica</option>
             </select>
         </div>
      

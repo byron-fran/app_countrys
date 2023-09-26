@@ -17,6 +17,7 @@ a{
   display: grid;
   width: 90%;
   margin: 0 auto;
+  background: #4f45e5;
 
 }
 @media(min-width: 768px){

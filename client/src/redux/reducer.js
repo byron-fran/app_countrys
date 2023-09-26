@@ -1,51 +1,51 @@
-import { LOAD_COUNTRIES, SEARCH_COUNTRIES, DETAIL_COUNTRY, MAJOR_ORDER, ORDER_lOWEST, POPULATION_LOWEST, POPULATION_MAJOR} from "../types/types"
+import {
+    LOAD_COUNTRIES,
+    SEARCH_COUNTRIES,
+    DETAIL_COUNTRY,
+    ORDER_BY_NAME,
+    FILERT_BY_CONTINENT,
+    ORDER_BY_POPULATION
+} from "../types/types"
 
 const initialState = {
-    listCountries : [],
-    searchCountries : [],
-    detailCoutry : []
+    listCountries: [],
+    searchCountries: [],
+    detailCoutry: []
 }
 export const reducer = (state = initialState, action) => {
 
-    switch(action.type){
+    switch (action.type) {
         case LOAD_COUNTRIES:
             return {
                 ...state,
-                listCountries : action.payload.success
+                listCountries: action.payload.success
             }
         case SEARCH_COUNTRIES:
-            return{
+            return {
                 ...state,
-                searchCountries : action.payload
+                searchCountries: action.payload
             }
-        case  DETAIL_COUNTRY:
+        case DETAIL_COUNTRY:
             return {
                 ...state,
-                detailCoutry : action.payload
-            }  
-        case MAJOR_ORDER :
-            // eslint-disable-next-line no-case-declarations
-           // const countr = state.listCountries.sort((a,b) => a.name.localeCompare(b.name));
-          // console.log(state.listCountries)
-            return {
-            ...state,
-             listCountries :state.listCountries.sort((a,b) => a.name.localeCompare(b.name))
-            }  
-        case ORDER_lOWEST:
+                detailCoutry: action.payload
+            }
+
+        case FILERT_BY_CONTINENT:
             return {
                 ...state,
-                listCountries :state.listCountries.sort((a,b) => b.name.localeCompare(a.name))
-            } 
-         case POPULATION_MAJOR:
+                listCountries: action.payload
+            }
+        case ORDER_BY_NAME:
             return {
                 ...state,
-                 listCountries :state.listCountries.sort((a,b) => a.population- b.population)
-                }  
-        case POPULATION_LOWEST:
+                listCountries: action.payload
+            }
+        case ORDER_BY_POPULATION:
             return {
                 ...state,
-                listCountries :state.listCountries.sort((a,b) => b.population- a.population)
-            } 
+                listCountries: action.payload
+            }
         default:
             return state
     }

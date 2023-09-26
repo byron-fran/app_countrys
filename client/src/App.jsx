@@ -1,12 +1,13 @@
 import {  useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadCountries, searchCountries } from './redux/actions';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, } from 'react-router-dom';
 import ListCountries from './components/ListCountries';
 import SearchBar from './components/SearchBar';
 import FindCountries from './components/FindCountries';
 import DetailCountry from './components/DetailCountry';
 import NavBar from './components/NavBar';
+import FormActivity from './components/FormActivity';
 
 
 import './App.css'
@@ -48,6 +49,7 @@ const handleSubmit = e => {
         <Route path='/' element={<ListCountries/>}/>
         <Route path='/search' element={<FindCountries/>}/>
         <Route path='/detail/:id' element={<DetailCountry/>}/>
+        <Route path='/form' element={<FormActivity/>}/>
       </Routes>
     </>
   )

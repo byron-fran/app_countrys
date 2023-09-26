@@ -1,14 +1,16 @@
-import React from 'react'
-import FormActivity from './FormActivity';
+
 import { NavLink } from 'react-router-dom';
 
+// eslint-disable-next-line react/prop-types
 const CardActivity = ({activity}) => {
+    // eslint-disable-next-line react/prop-types
+    const {name,difficulty ,duration} = activity
   return (
     <div>
          <div>
-            <h2>{activity.name}</h2>
-            <p>{activity.difficulty}</p>
-            <p>{activity.duration}</p>
+            <h2>{name}</h2>
+            <p>{difficulty}</p>
+            <p>{duration}</p>
             <NavLink to='/form'>
                    <button >Agregar nueva Actividad</button>
             </NavLink>
