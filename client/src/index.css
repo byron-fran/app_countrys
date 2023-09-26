@@ -51,9 +51,44 @@ a{
   column-gap: 1rem;
 }
 .bg-nav{
-  background-image: url('image/world.jpg');
+  background-image: url('/image/world.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 10rem;
+}
+
+.detail_continent {
+  position: relative;
+  padding-left: 2rem;
+}
+.detail_continent::before{
+  content: "";  /* Importante para que el pseudoelemento se muestre */
+  background-image: url('/image/continent.png');
+  width: 20px;  /* Define un ancho para el pseudoelemento */
+  height: 20px;
+  display: block;
+  position: absolute;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.detail_population{
+  position: relative;
+  padding-left: 2rem;
+}
+.detail_population::before{
+
+  content: "";  /* Importante para que el pseudoelemento se muestre */
+  background-image: url('/image/population.png');
+  width: 20px;  /* Define un ancho para el pseudoelemento */
+  height: 20px;
+  display: block;
+  position: absolute;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  left: 0;
+
 }

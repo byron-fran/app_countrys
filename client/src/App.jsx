@@ -1,6 +1,6 @@
 import {  useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadCountries, searchCountries } from './redux/actions';
+import { loadCountries} from './redux/actions';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import ListCountries from './components/ListCountries';
 import SearchBar from './components/SearchBar';
@@ -11,11 +11,14 @@ import FormActivity from './components/FormActivity';
 
 
 import './App.css'
+import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch();
   const Navigate = useNavigate()
-  const [searchCountry, setSearchCountry] = useState('')
+  const [searchCountry, setSearchCountry] = useState('');
+  const [error, setError] = useState(false);
+  const [countriesFind, setCountriesFind] = useState([])
 
   useEffect(() => {
     dispatch(loadCountries())
@@ -28,13 +31,31 @@ function App() {
 //     }
     
 //   },[searchCountry]);
-const handleSubmit = e => {
+const handleSubmit = async e => {
   e.preventDefault();
  
  if(!searchCountry.split(' ').join('').length <= 0 ){
-  dispatch(searchCountries(searchCountry));
-  Navigate('/search');
-  setSearchCountry('')
+ // dispatch(searchCountries(searchCountry));
+  try{
+    const url = `http://localhost:3001/countries/?name=${searchCountry}`;
+
+    const {data} = await axios(url);
+    setCountriesFind(data.success)
+    setError(false)
+    setSearchCountry('')
+    Navigate('/search');
+  }
+  catch(error){
+    console.log(error.response.status)
+    if(error.response.status === 404){
+      setCountriesFind([])
+      setSearchCountry('')
+      setError(true)
+      Navigate('/search');
+    }
+   }
+    
+ 
   return
  }
 
@@ -47,7 +68,7 @@ const handleSubmit = e => {
       <SearchBar searchCountry={searchCountry} setSearchCountry={setSearchCountry} handleSubmit={handleSubmit}/>
       <Routes>
         <Route path='/' element={<ListCountries/>}/>
-        <Route path='/search' element={<FindCountries/>}/>
+        <Route path='/search' element={<FindCountries error={error} countriesFind={countriesFind}/>}/>
         <Route path='/detail/:id' element={<DetailCountry/>}/>
         <Route path='/form' element={<FormActivity/>}/>
       </Routes>

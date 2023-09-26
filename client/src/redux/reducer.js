@@ -1,6 +1,5 @@
 import {
     LOAD_COUNTRIES,
-    SEARCH_COUNTRIES,
     DETAIL_COUNTRY,
     ORDER_BY_NAME,
     FILERT_BY_CONTINENT,
@@ -9,7 +8,6 @@ import {
 
 const initialState = {
     listCountries: [],
-    searchCountries: [],
     detailCoutry: []
 }
 export const reducer = (state = initialState, action) => {
@@ -19,11 +17,6 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 listCountries: action.payload.success
-            }
-        case SEARCH_COUNTRIES:
-            return {
-                ...state,
-                searchCountries: action.payload
             }
         case DETAIL_COUNTRY:
             return {

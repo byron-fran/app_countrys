@@ -1,39 +1,36 @@
-import { useEffect, useState } from "react";
-import { useSelector,  } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CardCountry from "./CardCountry"
+import CardCountry from "./CardCountry";
 
 
-const FindCountries = () => {
-    const [noCountries, setNoCountries] = useState(false)
-    //const Navigate = useNavigate()
-    const countriesSearch = useSelector(state => state.searchCountries.success );
-    useEffect(() => {
-      if(countriesSearch  === undefined || countriesSearch.length <=0){
-        setNoCountries(true)
-        return
-      }
-      setNoCountries(false)
-    }, [countriesSearch ])
-    if(countriesSearch === undefined || countriesSearch.length <=0){ 
-     
-      return null 
+
+// eslint-disable-next-line react/prop-types
+const FindCountries = ({ error, countriesFind }) => {
+
+  const Navigate = useNavigate()
+  useEffect(() => {
+    // eslint-disable-next-line react/prop-types
+    if (countriesFind.length <= 0 && !error) {
+      Navigate('/')
+
     }
-  
+  }, [])
 
   return (
-  <>
-    <div className="countries_card">
-        {countriesSearch.length >0 && countriesSearch.map(country => {
+    <>
+      <div>
+        {error && (<h1>No hay resultados</h1>)}
+        <div>
+          {/*  eslint-disable-next-line react/prop-types */}
+          {countriesFind && countriesFind.map(country => {
             return (
-                <CardCountry key={country.id} country={country}/>
+              <CardCountry key={country.id} country={country} />
             )
-        })}
-    </div>
-    <div>
-      {countriesSearch.length === 0 &&  (<p>No hay resultados</p>)}
-    </div>
-  </>
+          })}
+        </div>
+      </div>
+
+    </>
   )
 }
 

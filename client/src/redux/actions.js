@@ -1,6 +1,5 @@
 import {
     LOAD_COUNTRIES,
-    SEARCH_COUNTRIES,
     DETAIL_COUNTRY,
     ORDER_BY_NAME,
     FILERT_BY_CONTINENT,
@@ -25,19 +24,6 @@ export const loadCountries = () => {
     }
 };
 
-export const searchCountries = searchWord => {
-    return async dispatch => {
-        try {
-            const { data } = await axios(`http://localhost:3001/countries/?name=${searchWord}`);
-            return dispatch({
-                type: SEARCH_COUNTRIES,
-                payload: data
-            });
-        } catch (error) {
-            console.error(error.message);
-        }
-    }
-};
 
 export const detailCountry = searchDeatil => {
     return async dispatch => {
@@ -67,7 +53,9 @@ export const orderByName = order => {
         }
         catch(error) { console.log(error.message) }
     }
-}
+};
+
+//O
 export const orderByPopulation = name => {
     return async dispatch => {
         const url = `http://localhost:3001/countriesPopulation/${name}`
@@ -80,7 +68,9 @@ export const orderByPopulation = name => {
         }
         catch(error) { console.log(error.message)}
     }
-}
+};
+
+//Filtrar por continente
 export const filterByContinent = (continent) => {
     return async dispatch =>{
         const url = `http://localhost:3001/countriesFilters/${continent}`

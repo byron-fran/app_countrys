@@ -1,26 +1,43 @@
-const { Activity, Country  } = require('../db')
 
+const { Activity, Country,conn  } = require('../db');
+
+    
 const createActivity = async (req, res) => {
     
     const { name, difficulty, duration, season, countryId } = req.body;
-   // console.log(countryId)
+
+    if (!req.body) return res.status(404).json({ error: "not found" });
+    if (difficulty > 5 || difficulty <= 0) return res.status(400).json({ error: "difficulty not valid" });
+ 
+    const t = await conn.transaction();
+   
+
     try {
-        if (!req.body) { return res.status(404).json({ error: "not found" }) };
-        if (difficulty > 5 || difficulty <= 0) { return res.status(400).json({ error: "difficulty no valid" }) };
-        
         const [newActivity, created] = await Activity.findOrCreate({
             where: {
                 name, difficulty, duration, season
-            }
+            },
+            transaction: t
         });
-        if(countryId){
-            const country = await Country.findByPk(countryId);
-            if(!country){ return res.status(404).json({error : "Not found"})};
-            await newActivity.addCountry(country)
+
+        if (countryId && Array.isArray(countryId)) {
+            for (let i = 0; i < countryId.length; i++) {
+                const country = await Country.findByPk(countryId[i], { transaction: t });
+                if (!country) {
+                    await t.rollback();
+                    return res.status(404).json({ error: `Country with ID ${countryId[i]} not found` });
+                }
+                await newActivity.addCountry(country, { transaction: t });
+            }
         }
-        return res.status(200).json({ success: newActivity })
+
+        await t.commit();
+
+        return res.status(200).json({ success: newActivity });
+    } catch (error) {
+        await t.rollback();
+        return res.status(500).json({ error: error.message });
     }
-    catch (error) { return res.status(500).json({ error: error.message }) }
 };
 
 const getActivity = async (req, res) => {
