@@ -9,29 +9,35 @@ import {
 import { useEffect } from "react";
 
 
-const Filters = () => {
+// eslint-disable-next-line react/prop-types
+const Filters = ({ setCurrentPage}) => {
     const dispatch = useDispatch();
     const countries = useSelector(state => state.listCountries);
     useEffect(() => {
 
-    }, [])
+    }, []);
+    
     if (countries === undefined || countries.length <= 0) return null;
 
     const handleOrderByName = (e) => {
         const order = e.target.value;
         dispatch(orderByName(order))
+        setCurrentPage(1)
     };
 
     const handlerContinent = (e) => {
         const continent = e.target.value;
         dispatch(filterByContinent(continent));
+        setCurrentPage(1)
     }
     const handlerByPopulation = e => {
         const population = e.target.value;
         dispatch(orderByPopulation(population))
+        setCurrentPage(1)
     };
     const handleReserOrder = () => {
         dispatch(loadCountries())
+        setCurrentPage(1)
     }
     return (
         <div>

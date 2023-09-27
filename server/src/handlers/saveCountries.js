@@ -8,7 +8,7 @@ const saveCountries = async () => {
         const { data } = await axios(url);
         for (let i = 0; i < data.length; i++) {
             let countryInfo = {
-                name: data[i].name.official,
+                name: data[i].name.common,
                 id: data[i].cca3,
                 area: data[i].area,
                 image: data[i].flags.png,

@@ -20,7 +20,9 @@ const FindCountries = ({ error, countriesFind }) => {
     <>
       <div>
         {error && (<h1>No hay resultados</h1>)}
-        <div>
+        {!error && (<h1>Resultados de busqueda</h1>)}
+        <div className="countries_card">
+         
           {/*  eslint-disable-next-line react/prop-types */}
           {countriesFind && countriesFind.map(country => {
             return (

@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect,} from "react";
 import { useSelector, } from "react-redux"
 import CardCountry from "./CardCountry";
 import Filters from "./Filters";
 import { generarId } from "../helpers";
 
 
-const ListCountries = () => {
+// eslint-disable-next-line react/prop-types
+const ListCountries = ({currentPage, setCurrentPage}) => {
   const countries = useSelector(state => state.listCountries);
 
   useEffect(() => {
 
   }, [countries])
-  const [currentPage, setCurrentPage] = useState(1);
+
   if (countries === undefined || countries.length <= 0) return null;
   // if(countriesSearch === undefined || countriesSearch.length <= 0) return null;
   // console.log(countriesSearch)
 
-  const countryPerPage = 20;
+  const countryPerPage = 12;
 
   const indexOfLastCountry = currentPage * countryPerPage;
 
@@ -38,7 +39,7 @@ const ListCountries = () => {
 
   return (
     <>
-      <Filters />
+      <Filters currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <div className="countries_card">
         {currentCountries.length > 0 && currentCountries.map(country => {
           return (

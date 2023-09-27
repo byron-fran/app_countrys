@@ -20,16 +20,17 @@ module.exports = (sequelize) => {
             }
         },
         duration : {
-            type: DataTypes.STRING, // o DataTypes.TIME dependiendo de tu SGBD y tus necesidades
+            type: DataTypes.INTEGER, 
             validate: {
-              // Puedes agregar validaciones adicionales si es necesario
-              is: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/, // HH:MM or HH:MM:SS
+                min: 1,
+                max :12
+              //is: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/, // HH:MM or HH:MM:SS
             }
         },
         season :{
-            type: DataTypes.ARRAY(DataTypes.STRING), // Cambia STRING si es otro tipo de dato que deseas
-            allowNull: true,
-            defaultValue: []
+            type: DataTypes.STRING,
+            allowNull: false,
+          
         }
     },
     {timestamps: false}

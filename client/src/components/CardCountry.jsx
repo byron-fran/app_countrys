@@ -12,7 +12,7 @@ const CardCountry = ({ country }) => {
         {/* eslint-disable-next-line react/prop-types */}
         <img src={`${country.image}`} alt="img-country" />
         {/* eslint-disable-next-line react/prop-types */}
-        <p>{country.continents}</p>
+        <p className="detail_continent">{country.continents}</p>
       </NavLink>
 
     </div>
