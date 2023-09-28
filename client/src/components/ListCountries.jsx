@@ -14,8 +14,7 @@ const ListCountries = ({currentPage, setCurrentPage}) => {
   }, [countries])
 
   if (countries === undefined || countries.length <= 0) return null;
-  // if(countriesSearch === undefined || countriesSearch.length <= 0) return null;
-  // console.log(countriesSearch)
+
 
   const countryPerPage = 12;
 
@@ -25,17 +24,6 @@ const ListCountries = ({currentPage, setCurrentPage}) => {
   const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
 
   const totalPages = Math.ceil(countries.length / countryPerPage);
-
-  // let countryPerPage = 20;
-  // let totaCuntries = countries.length;
-  // let  totalButtons = totaCuntries / countryPerPage;
-
-  // let buttons = [];
-  // for(let i = 1; i<=totalButtons.toFixed(); i++){
-  //   buttons.push(i)
-  // }
-  // console.log(currentCountries);
-
 
   return (
     <>

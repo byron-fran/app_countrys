@@ -19,6 +19,7 @@ function App() {
   const [countriesFind, setCountriesFind] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
 
+
   useEffect(() => {
     dispatch(loadCountries())
   }, []);
@@ -64,7 +65,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ListCountries currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
         <Route path='/search' element={<FindCountries error={error} countriesFind={countriesFind} />} />
-        <Route path='/detail/:id' element={<DetailCountry />} />
+        <Route path='/detail/:id' element={<DetailCountry  />} />
         <Route path='/form' element={<FormActivity />} />
       </Routes>
     </>

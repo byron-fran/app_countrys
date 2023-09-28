@@ -5,6 +5,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 @media(min-width: 768px){
     .container_filter{
@@ -12,29 +13,42 @@
     }
 }
 .select_filter{
-    width: 200px;
     background: #074FD6;
     color: #fff;
-    width: 80px;
+    width: 300px;
     border: none;
     border-radius: 6px;
     padding:  0.5 1rem;
 }
 .label_filter {
-    width: 80px;
+    width: 300px;
+    text-align:center;
     font-size: 15px;
     margin-bottom: 0.3rem;
     font-size: 14px;
     margin-top: 0;
 }
 @media(min-width: 768px){
-    .label_filter, .select_filter{
-        width: 100px;
-        margin-top: 0.6rem;
+    .label_filter{
+        width: 90px;
+        margin-top: 0.3rem;
+    }
+    .select_filter{
+        width: 140px;
     }
 }
+@media(min-width: 990px){
+    .label_filter{
+        width: 110px;
+        margin-top: 0.3rem;
+    }
+    .select_filter{
+        width: 160px;
+    }
+}
+
 .btn_filter{
-    margin-top: 3.3rem;
+    margin-top: 2.5rem;
     background: #E67E22;
     color: #fff;
     padding: 0.4rem 1rem;

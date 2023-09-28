@@ -1,14 +1,13 @@
 import {
     LOAD_COUNTRIES,
-    DETAIL_COUNTRY,
     ORDER_BY_NAME,
     FILERT_BY_CONTINENT,
-    ORDER_BY_POPULATION
+    ORDER_BY_POPULATION,
+    FILTER_BY_ACTIVITY
 } from "../types/types"
 
 const initialState = {
-    listCountries: [],
-    detailCoutry: []
+    listCountries: []
 }
 export const reducer = (state = initialState, action) => {
 
@@ -17,11 +16,6 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 listCountries: action.payload.success
-            }
-        case DETAIL_COUNTRY:
-            return {
-                ...state,
-                detailCoutry: action.payload
             }
 
         case FILERT_BY_CONTINENT:
@@ -36,6 +30,11 @@ export const reducer = (state = initialState, action) => {
             }
         case ORDER_BY_POPULATION:
             return {
+                ...state,
+                listCountries: action.payload
+            }
+        case FILTER_BY_ACTIVITY:
+            return{
                 ...state,
                 listCountries: action.payload
             }

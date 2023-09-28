@@ -8,14 +8,11 @@ const useSelectValidate = (arrayIdCountries) => {
         const idFound = idCountries.find(ids => ids === id)
         if(!idFound){
           setIdCountries([...idCountries,id]);
-          //setMarcado(true)
-         //console.log(infoActivity)
+   
          return
         }
-       
-    
-       // idsc.filter(i => i !== idFound)
-      }
+    }
+
   return {
     idCountries,
     setIdCountries,

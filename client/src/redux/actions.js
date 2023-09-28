@@ -1,13 +1,14 @@
+import axios from 'axios'
 import {
     LOAD_COUNTRIES,
-    DETAIL_COUNTRY,
     ORDER_BY_NAME,
     FILERT_BY_CONTINENT,
-    ORDER_BY_POPULATION
+    ORDER_BY_POPULATION,
+    FILTER_BY_ACTIVITY
 
 } from "../types/types";
 
-import axios from 'axios'
+
 
 export const loadCountries = () => {
     return async dispatch => {
@@ -18,29 +19,10 @@ export const loadCountries = () => {
                 payload: data
             })
         }
-        catch (error) {
-            console.log(error)
-        }
+        catch (error) { console.log(error) }
     }
 };
 
-
-export const detailCountry = searchDeatil => {
-    return async dispatch => {
-        
-        try {
-            const { data } = await axios(`http://localhost:3001/countries/${searchDeatil}`);
-            return dispatch({
-                type: DETAIL_COUNTRY,
-                payload: data
-            });
-
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-};
 
 export const orderByName = order => {
     return async dispatch => {
@@ -74,11 +56,31 @@ export const orderByPopulation = name => {
 //Filtrar por continente
 export const filterByContinent = continent => {
     return async dispatch =>{
-        const url = `http://localhost:3001/countriesFilters/${continent}`
-        const {data} = await axios(url);
-        return dispatch({
-            type : FILERT_BY_CONTINENT,
-            payload : data.continentsByContinents
-        })
+        try{
+            const url = `http://localhost:3001/countriesFilters/${continent}`
+            const {data} = await axios(url);
+            return dispatch({
+                type : FILERT_BY_CONTINENT,
+                payload : data.continentsByContinents
+            })
+        }
+        catch(error) {console.log(error.message)}
+
+    } 
+};
+//Filtrar por actividades
+
+export const filterByActivity = id => {
+    return async dispatch =>{
+        try{
+            const url = `http://localhost:3001/activities/${id}`
+            const {data} = await axios(url);
+            return dispatch({
+                type : FILTER_BY_ACTIVITY,
+                payload : data.activityFind.Countries
+            })
+        }
+        catch(error) {console.log(error.message)}
+
     } 
 }

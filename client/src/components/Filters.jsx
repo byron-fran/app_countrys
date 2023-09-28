@@ -1,21 +1,36 @@
 /* eslint-disable no-case-declarations */
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useEffect, useState, Fragment } from "react";
+import '../styles/filters.css'
 import {
     orderByName,
     filterByContinent,
     orderByPopulation, 
-    loadCountries
+    loadCountries,
+    filterByActivity
 } from "../redux/actions";
-import { useEffect } from "react";
-import '../styles/filters.css'
 
 
 // eslint-disable-next-line react/prop-types
 const Filters = ({ setCurrentPage}) => {
     const dispatch = useDispatch();
     const countries = useSelector(state => state.listCountries);
-    useEffect(() => {
+    const [activities, setActivities] = useState([])
 
+    useEffect(() => {
+        const getActivites = async () => {
+            try{
+                const url = 'http://localhost:3001/activitesAll';
+                const {data} = await axios(url);
+                setActivities(data)
+                return data
+            }
+            catch(error){
+                console.log(error.message)
+            }
+        }
+        getActivites()
     }, []);
     
     if (countries === undefined || countries.length <= 0) return null;
@@ -38,6 +53,11 @@ const Filters = ({ setCurrentPage}) => {
     };
     const handleReserOrder = () => {
         dispatch(loadCountries())
+        setCurrentPage(1)
+    };
+    const handlerByActivity = e => {
+        const id = e.target.value
+        dispatch(filterByActivity(id))
         setCurrentPage(1)
     }
     return (
@@ -74,7 +94,19 @@ const Filters = ({ setCurrentPage}) => {
                     <option value="Antarctica">Antarctica</option>
                 </select>
             </div>
-
+            <div>
+                <label className="label_filter" htmlFor="activity">Filtrar por actividad</label>
+                <select  className="select_filter" name="activity" id="activity" onChange={handlerByActivity}>
+                    <option>--Selecciona una actividad</option>
+                    {
+                        activities.length > 0 && activities.map(activity => (
+                            <Fragment key={activity.id}>
+                                <option value={activity.id}>{activity.name}</option>
+                            </Fragment>
+                        ))
+                    }
+                </select>
+            </div>
 
         </div>
     )

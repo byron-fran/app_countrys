@@ -6,7 +6,7 @@ const useFormValidate = (objActivity,objAlerta) => {
     const [exito, setExito] = useState(false)
     const [infoActivity, setInfoActivity] = useState(objActivity);
     const [alerta, setAlerta] = useState(objAlerta);
-    
+
     const handlerSendInfo = async e => {
         e.preventDefault();
         //console.log(idsc)
@@ -77,13 +77,15 @@ const useFormValidate = (objActivity,objAlerta) => {
         const url = `http://localhost:3001/activities`;
         try{
           const {data} = await axios.post(url, infoActivity);
+
           setExito(true)
           setInfoActivity({...infoActivity,
             name : '',
             difficulty : '',
             duration : '',
             season: '',
-            countryId :[]})
+            countryId :[]});
+
           setTimeout(() => {
             setExito(false)
           }, 3000)
@@ -91,10 +93,9 @@ const useFormValidate = (objActivity,objAlerta) => {
         }
         catch(error){
           setExito(false) 
-          console.log(error) }
+          console.log(error) 
+        }
        
-    
-    
       };
     
     return {
