@@ -3,9 +3,7 @@ import { useParams } from "react-router-dom";
 import { formaterDinero } from "../helpers";
 import CardActivity from "./CardActivity";
 import axios from "axios";
-
-
-
+import '../styles/detailCountry.css'
 
 // eslint-disable-next-line react/prop-types
 const DetailCountry = () => {
