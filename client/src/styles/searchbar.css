@@ -19,6 +19,19 @@
     bottom:5rem;
 
 }
+.btn_search{
+    background: #30d976;
+    color: #fff;
+    border:none;
+    border-radius: 5px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 0.5rem;
+}
+.btn_search:hover{
+    background: #1cc261;
+    cursor: pointer;
+}
 .btn_float{
     background: #074FD6;
     color: #fff;

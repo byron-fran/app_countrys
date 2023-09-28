@@ -27,6 +27,7 @@ export const loadCountries = () => {
 
 export const detailCountry = searchDeatil => {
     return async dispatch => {
+        
         try {
             const { data } = await axios(`http://localhost:3001/countries/${searchDeatil}`);
             return dispatch({
@@ -71,7 +72,7 @@ export const orderByPopulation = name => {
 };
 
 //Filtrar por continente
-export const filterByContinent = (continent) => {
+export const filterByContinent = continent => {
     return async dispatch =>{
         const url = `http://localhost:3001/countriesFilters/${continent}`
         const {data} = await axios(url);

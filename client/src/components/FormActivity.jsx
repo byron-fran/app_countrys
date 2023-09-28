@@ -1,143 +1,38 @@
-import { useState, Fragment, useEffect } from "react"
+import { Fragment, useEffect } from "react"
 import { useSelector } from "react-redux";
 import '../styles/form.css'
 
-import axios from "axios";
+import useFormValidate from "../hooks/useFormValidate";
+import useSelectValidate from "../hooks/useSelectValidate";
 const FormActivity = () => {
+
   const countries = useSelector(state => state.listCountries);
 
-  //const [marcado, setMarcado] = useState(false)
-  const [idCountries, setIdCountries] = useState([]);
-  const [exito, setExito] = useState(false)
-  const [alerta, setAlerta] = useState ({
+  const arrayIdCountries = []
+  const objActivity = {
     name : '',
     difficulty : '',
     duration : '',
     season: '',
-    countryId :''
-  })
+    countryId :[]
+    } 
 
-
-  const [infoActivity, setInfoActivity] = useState({
-      name : '',
-      difficulty : '',
-      duration : '',
-      season: '',
-      countryId :[]
-  })
- 
- useEffect(() => {
-    if(idCountries.length> 0){
-       setInfoActivity({...infoActivity, countryId : idCountries}) 
-    }
- }, [idCountries]);
-
-  const handlerSendInfo = async e => {
-    e.preventDefault();
-    //console.log(idsc)
-    //hacer Valiaciones
-    if(infoActivity.name.split(' ').join('').length <= 0){
-      setAlerta({...alerta, name : 'Este campo no debe ir vacio'})
-      return
-    }
-    setAlerta({...alerta, name : ''})
-
-    if(infoActivity.difficulty.split(' ').join('').length <= 0 ){
-      setAlerta({...alerta, difficulty : "Este campo no debe ir vacio"})
-      return
-    }
-    if(!Number(infoActivity.difficulty)){
-      setAlerta({...alerta, difficulty : "debe ser un numero valido"});
-      return
-    }
-    setAlerta({...alerta, difficulty : ""});
-
-    if(parseInt(infoActivity.difficulty) <=0 || parseInt( infoActivity.difficulty) >5){
-      setAlerta({...alerta, difficulty : "Debe ser un número entre 1 y 5"})
-      return
-    }
-    setAlerta({...alerta, difficulty : ""});
-
-
-    if(infoActivity.duration.split(' ').join('').length <= 0){
-      setAlerta({...alerta, duration : 'Este campo no debe ir vacio'})
-      return
-    }
-    setAlerta({...alerta, duration : ''})
-    if(!Number(infoActivity.duration)){
-      setAlerta({...alerta,duration : "debe ser un numero valido"});
-      return
-    }
-    setAlerta({...alerta, duration : ''})
-
-    if(parseInt(infoActivity.duration) <=0 || parseInt(infoActivity.duration ) > 12 ){
-      setAlerta({...alerta, duration : 'Debe ser un numero etre 1 y 12'})
-      return
-    }
-    setAlerta({...alerta, duration : ''})
-
-
-    if(infoActivity.season.split(' ').join('').length <= 0 ){
-      setAlerta({...alerta,season : 'Selecciona un temporada'})
-      return
-    }
-    setAlerta({...alerta, season : ''});
-
-
-    if(infoActivity.countryId.length <= 0){
-      setAlerta({...alerta, countryId : "Selecciona al menos un pais"})
-      return
-    }
-    setAlerta({...alerta, countryId : ''});
-
-
-    setAlerta({
-      name : '',
-      difficulty : '',
-      duration : '',
-      season: '',
-      countryId :''
-    })
-    //Enviar los datos del activity al server
-    const url = `http://localhost:3001/activities`;
-    try{
-      const {data} = await axios.post(url, infoActivity);
-      setExito(true)
-      setInfoActivity({...infoActivity,
-        name : '',
-        difficulty : '',
-        duration : '',
-        season: '',
-        countryId :[]})
-      setTimeout(() => {
-        setExito(false)
-      }, 3000)
-      console.log(data)
-    }
-    catch(error){
-      setExito(false) 
-      console.log(error) }
-   
-
-
-  };
-
-
-
-
-  const hanlderSelectValue = e => {
-    const id = e.target.value;
-    const idFound = idCountries.find(ids => ids === id)
-    if(!idFound){
-      setIdCountries([...idCountries,id]);
-      //setMarcado(true)
-     //console.log(infoActivity)
-     return
-    }
-   
-
-   // idsc.filter(i => i !== idFound)
+  const objAlerta = {
+   name : '',
+   difficulty : '',
+   duration : '',
+   season: '',
+   countryId :''
   }
+  const { infoActivity,setInfoActivity, alerta,handlerSendInfo,exito} = useFormValidate(objActivity, objAlerta);
+  const { idCountries, hanlderSelectValue} = useSelectValidate(arrayIdCountries)
+  useEffect(() => {
+     if(idCountries.length> 0){
+        setInfoActivity({...infoActivity, countryId : idCountries}) 
+     }
+  }, [idCountries]);
+
+
   return (
     <>
       {exito && (<p className="success">Se agregó nueva activiada con exito</p>)}
@@ -200,7 +95,7 @@ const FormActivity = () => {
           <button className="btn_add" type="submit">Agregar Actividad </button>
         </div>
       </form>
-
+      
     </div>
     </>
 

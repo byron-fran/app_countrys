@@ -4,10 +4,15 @@ import { detailCountry } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { formaterDinero } from "../helpers";
 import CardActivity from "./CardActivity";
-import '../styles/detailCountry.css'
+import '../styles/detailCountry.css';
+
+
 
 
 const DetailCountry = () => {
+
+
+
     const { id } = useParams();
     const dispatch = useDispatch();
     const countryDetail = useSelector(state => state.detailCoutry.success);

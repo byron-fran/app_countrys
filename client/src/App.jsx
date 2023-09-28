@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadCountries } from './redux/actions';
-import { Routes, Route, useNavigate, NavLink, } from 'react-router-dom';
+import { Routes, Route, useNavigate, } from 'react-router-dom';
 import ListCountries from './components/ListCountries';
 import SearchBar from './components/SearchBar';
 import FindCountries from './components/FindCountries';
 import DetailCountry from './components/DetailCountry';
 import NavBar from './components/NavBar';
 import FormActivity from './components/FormActivity';
-
-
 import './App.css'
 import axios from 'axios';
 
