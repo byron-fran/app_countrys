@@ -1,5 +1,7 @@
 import { useState, Fragment, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
+import '../styles/form.css'
+
 import axios from "axios";
 const FormActivity = () => {
   const countries = useSelector(state => state.listCountries);
@@ -7,7 +9,6 @@ const FormActivity = () => {
   //const [marcado, setMarcado] = useState(false)
   const [idCountries, setIdCountries] = useState([]);
   const [exito, setExito] = useState(false)
-  const[errores, setError] = useState([])
   const [alerta, setAlerta] = useState ({
     name : '',
     difficulty : '',
@@ -69,7 +70,7 @@ const FormActivity = () => {
     }
     setAlerta({...alerta, duration : ''})
 
-    if(parseInt(infoActivity.duration) <=0 || parseInt(infoActivity.duration ) > 12){
+    if(parseInt(infoActivity.duration) <=0 || parseInt(infoActivity.duration ) > 12 ){
       setAlerta({...alerta, duration : 'Debe ser un numero etre 1 y 12'})
       return
     }
@@ -110,7 +111,7 @@ const FormActivity = () => {
         countryId :[]})
       setTimeout(() => {
         setExito(false)
-      }, 2000)
+      }, 3000)
       console.log(data)
     }
     catch(error){
@@ -138,11 +139,13 @@ const FormActivity = () => {
    // idsc.filter(i => i !== idFound)
   }
   return (
-    <div style={{ marginTop : '5rem' }}>
-      {exito && (<p>Se agregó nueva activiada con exito</p>)}
-      <form action="" onSubmit={handlerSendInfo}>
+    <>
+      {exito && (<p className="success">Se agregó nueva activiada con exito</p>)}
+      <div className="container">
+   
+      <form className="form_container" onSubmit={handlerSendInfo}>
         <div>
-          {alerta.name && (<p>{alerta.name}</p>)}
+          {alerta.name && (<p className="alerta">{alerta.name}</p>)}
           <label htmlFor="nombre">Nombre de la actividad</label>
           <input  type="text" id="nombre" placeholder="Ej. Escalar el imalaya" 
             value={infoActivity.name}
@@ -150,7 +153,7 @@ const FormActivity = () => {
           />
         </div>
         <div>
-        {alerta.difficulty && (<p>{alerta.difficulty}</p>)}
+        {alerta.difficulty && (<p className="alerta">{alerta.difficulty}</p>)}
           <label htmlFor="dificultad">Dificultad</label>
           <input type="text" id="dificultad" placeholder="Ej. 1-5"
           value={infoActivity.difficulty}
@@ -158,15 +161,16 @@ const FormActivity = () => {
            />
         </div>
         <div>
-        {alerta.duration && (<p>{alerta.duration}</p>)}
+        {alerta.duration && (<p className="alerta">{alerta.duration}</p>)}
           <label htmlFor="duracion">Duracion</label>
           <input type="text" id="duracion" placeholder="Ej. 5 horas, max-10"
           value={infoActivity.duration}
           onChange={e => setInfoActivity({...infoActivity, duration: e.target.value})} />
          
         </div>
-        <div>
-        {alerta.season && (<p>{alerta.season}</p>)}
+
+        <div className="div_select">
+        {alerta.season && (<p className="alerta">{alerta.season}</p>)}
           <label htmlFor="season">Temporada</label>
           <select name="season" id="season" 
           value={infoActivity.season}
@@ -179,10 +183,10 @@ const FormActivity = () => {
            
           </select>
         </div>
-        <div>
-        {alerta.countryId && (<p>{alerta.countryId}</p>)}
+        <div  className="div_select">
+        {alerta.countryId && (<p className="alerta">{alerta.countryId}</p>)}
             <select name="" id="" onChange={ hanlderSelectValue}>
-              <option>--Selecciona un Pais--</option>        
+              <option>--Selecciona uno o más Paises--</option>        
                 {countries.length > 0 && countries.map(country => (
                   <Fragment key={country.id}>
                    <option value={country.id}  >{country.name}</option>
@@ -193,10 +197,13 @@ const FormActivity = () => {
             </select>
         </div>
         <div>
-          <button type="submit">Agregar Actividad </button>
+          <button className="btn_add" type="submit">Agregar Actividad </button>
         </div>
       </form>
+
     </div>
+    </>
+
   )
 }
 

@@ -7,6 +7,7 @@ import {
     loadCountries
 } from "../redux/actions";
 import { useEffect } from "react";
+import '../styles/filters.css'
 
 
 // eslint-disable-next-line react/prop-types
@@ -40,13 +41,13 @@ const Filters = ({ setCurrentPage}) => {
         setCurrentPage(1)
     }
     return (
-        <div>
+        <div className="container_filter">
             <div>
-                <button onClick={handleReserOrder}>Todos</button>
+                <button className="btn_filter" onClick={handleReserOrder}>Todos</button>
             </div>
             <div>
-                <label htmlFor="orderName">Order por nombre</label>
-                <select onChange={handleOrderByName} id="orderName">
+                <label className="label_filter" htmlFor="orderName">Order por nombre</label>
+                <select className="select_filter" onChange={handleOrderByName} id="orderName">
 
                     <option value="Ascenedente">Ascendente</option>
                     <option value="Descendente">Descendente</option>
@@ -54,16 +55,16 @@ const Filters = ({ setCurrentPage}) => {
                 </select>
             </div>
             <div>
-                <label htmlFor="orderPopulation">Ordernar por Poblacion</label>
-                <select onChange={handlerByPopulation} name="orderPopulation" id="orderPopulation">
+                <label className="label_filter" htmlFor="orderPopulation">Ordernar por Poblacion</label>
+                <select  className="select_filter" onChange={handlerByPopulation} name="orderPopulation" id="orderPopulation">
                     <option value="Mayor">Poblacion Mayor</option>
                     <option value="Menor">Poblacoion Menor</option>
                 </select>
 
             </div>
             <div>
-                <label htmlFor="orderContinent">Ordernar por continente</label>
-                <select onChange={handlerContinent} id="orderContinent">
+                <label className="label_filter" htmlFor="orderContinent">Ordernar por continente</label>
+                <select  className="select_filter" onChange={handlerContinent} id="orderContinent">
                     <option value="Africa">Africa</option>
                     <option value="Europe">Europe</option>
                     <option value="South America">South America</option>

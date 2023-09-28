@@ -4,11 +4,14 @@ const CardActivity = ({ activity }) => {
   // eslint-disable-next-line react/prop-types
   const { name, difficulty, duration } = activity
   return (
-    <div>
+    <div className="card_activity">
       <div>
         <h2>{name}</h2>
-        <p>{difficulty}</p>
-        <p>{duration}</p>
+        <div className="info_activity">
+           <p> dificultad: {difficulty}</p>
+            <p>Duracion: {duration} hrs.</p>
+        </div>
+       
 
 
       </div>

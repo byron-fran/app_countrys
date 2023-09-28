@@ -61,7 +61,7 @@ function App() {
     <>
       
       <NavBar />
-      <NavLink to='/form'><button>Agregar Actividad</button></NavLink>
+      
       <SearchBar searchCountry={searchCountry} setSearchCountry={setSearchCountry} handleSubmit={handleSubmit} />
       <Routes>
         <Route path='/' element={<ListCountries currentPage={currentPage} setCurrentPage={setCurrentPage} />} />

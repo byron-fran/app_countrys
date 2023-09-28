@@ -4,6 +4,7 @@ import { detailCountry } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { formaterDinero } from "../helpers";
 import CardActivity from "./CardActivity";
+import '../styles/detailCountry.css'
 
 
 const DetailCountry = () => {
@@ -20,18 +21,18 @@ const DetailCountry = () => {
 
 
     return (
-        <div className="detail_card">
-            <div>
+        <div className={`${countryDetail.Activities.length ? 'detail_grid' : 'detail_flex'}`}>
+            <div className={`${countryDetail.Activities.length ? 'deatail_card2' : 'deatail_card'}`}>
                 <h1>{countryDetail.name}</h1>
-                <img src={`${countryDetail.image}`} alt="image-country" />
+                <img className='detail_img' src={`${countryDetail.image}`} alt="image-country" />
                 <h2>{countryDetail.capital === 'null'? "" :  countryDetail.capital}</h2>
                 <p className="detail_continent">{countryDetail.continents}</p>
                 <p className="detail_population">{formaterDinero(countryDetail.population)}</p>
                 <p>{countryDetail.subregion === 'null'? '' : countryDetail.subregion}</p>
             </div>
 
-            <div>
-                <p>{!countryDetail.Activities.length && 'No hay actividades'}</p>
+            <div className='detail_info'>
+                
                 {countryDetail.Activities && countryDetail.Activities.map(activity => {
                     return (
                         <CardActivity key={activity.id} activity={activity} />

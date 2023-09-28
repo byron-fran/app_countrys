@@ -3,7 +3,7 @@ import { useSelector, } from "react-redux"
 import CardCountry from "./CardCountry";
 import Filters from "./Filters";
 import { generarId } from "../helpers";
-
+import '../styles/listCountries.css'
 
 // eslint-disable-next-line react/prop-types
 const ListCountries = ({currentPage, setCurrentPage}) => {
@@ -53,7 +53,9 @@ const ListCountries = ({currentPage, setCurrentPage}) => {
         {Array.from({ length: totalPages }).map((_, index) => {
           const pageNumber = index + 1;
           return (
-            <button key={generarId()} onClick={() => setCurrentPage(pageNumber)}>
+            <button key={generarId()} 
+            onClick={() => setCurrentPage(pageNumber)}
+            className={currentPage === pageNumber ? 'active' : 'noActive'}>
               {pageNumber}
             </button>
           )

@@ -1,0 +1,33 @@
+.container_search {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+
+
+}
+.container_postion{
+    position: relative;
+}
+.grid_search {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    column-gap: 2rem;
+}
+.btn_absolute{
+    position: fixed;
+    right: 4rem;
+    bottom:5rem;
+
+}
+.btn_float{
+    background: #074FD6;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 100%;
+    font-size: 1.7rem;
+}
+.btn_float:hover{
+    background: #0542b3;
+    cursor: pointer;
+}
