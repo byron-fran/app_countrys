@@ -13,27 +13,18 @@ const DetailCountry = () => {
     const { id } = useParams();
 
     useEffect(() => {
-
-        const getPais = async () => {
-
-
+        const getCountry = async () => {
             try {
 
                 const url = `http://localhost:3001/countries/${id}`
                 const { data } = await axios(url);
                 setCountryDetail(data.success)
-
                 return data;
-
             }
-
-            catch (error) {
-
-                console.log(error.message)
-            }
+            catch (error) { console.log(error.message) }
         };
 
-        getPais();
+        getCountry();
     }, [id])
 
     if (countryDetail === undefined || countryDetail.Activities === undefined) return null;

@@ -18,14 +18,15 @@ const FormActivity = () => {
     } 
 
   const objAlerta = {
-   name : '',
-   difficulty : '',
-   duration : '',
-   season: '',
-   countryId :''
+    name : '',
+    difficulty : '',
+    duration : '',
+    season: '',
+    countryId :''
   }
   const { infoActivity,setInfoActivity, alerta,handlerSendInfo,exito} = useFormValidate(objActivity, objAlerta);
-  const { idCountries, hanlderSelectValue} = useSelectValidate(arrayIdCountries)
+  const { idCountries, hanlderSelectValue} = useSelectValidate(arrayIdCountries);
+  
   useEffect(() => {
      if(idCountries.length> 0){
         setInfoActivity({...infoActivity, countryId : idCountries}) 
