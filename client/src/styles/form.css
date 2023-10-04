@@ -43,6 +43,7 @@ option {
 .btn_add {
     background: #4f45e5;
     color: #fff;
+    border: none;
     margin-top: 1rem;
     padding: 0.8rem;
     width: 100%;

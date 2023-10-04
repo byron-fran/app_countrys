@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER, 
             validate: {
                 min: 1,
-                max :12
+                max :24
               //is: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/, // HH:MM or HH:MM:SS
             }
         },

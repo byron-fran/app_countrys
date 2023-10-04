@@ -1,8 +1,8 @@
-
+const {request, response} = require('express')
 const { Activity, Country,conn  } = require('../db');
 
     
-const createActivity = async (req, res) => {
+const createActivity = async (req = request, res = response) => {
     
     const { name, difficulty, duration, season, countryId } = req.body;
 
@@ -10,8 +10,6 @@ const createActivity = async (req, res) => {
     if (difficulty > 5 || difficulty <= 0) return res.status(400).json({ error: "difficulty not valid" });
  
     const t = await conn.transaction();
-   
-
     try {
         const [newActivity, created] = await Activity.findOrCreate({
             where: {
@@ -40,7 +38,7 @@ const createActivity = async (req, res) => {
     }
 };
 
-const getActivity = async (req, res) => {
+const getActivity = async (req = request, res = response) => {
     const { id } = req.params;
     try {
         const activityFind = await Activity.findByPk(id, {
@@ -53,17 +51,74 @@ const getActivity = async (req, res) => {
 };
 
 
-const getAllActivities = async (req, res) => {
+const getAllActivities = async (req = request, res = response) => {
     try{
         const activities = await Activity.findAll();
         if(!activities) { return res.status(404).json({error : error.message})};
         return res.status(200).json(activities)
     }
     catch(error){ return res.status(500).json({error : error.message})}
+};
+
+const deleteActivityByCountry = async (req = request, res = response) => {
+    const {id} = req.params;
+    try{
+        const countryId = await Activity.destroy({ where : {id} });
+        if(!countryId){ return res.status(404).json({error : "cannot delete"})};
+        return res.status(200).json({ success : "ok",countryId})
+    }
+    catch(error){return res.status(500).json({error : error.message})}
+
+};
+
+const upadetActivityById = async (req = request, res = response) => {
+    const { id } = req.params;
+    const { name, difficulty, duration, season, countryId } = req.body;
+    const t = await conn.transaction();
+
+    try {
+        const activity = await Activity.findByPk(id, { transaction: t });
+
+        if (!activity) {
+            return res.status(404).json({ error: `Activity with ID ${id} not found` });
+        }
+
+        activity.name = name;
+        activity.difficulty = difficulty;
+        activity.duration = duration;
+        activity.season = season;
+
+        // Actualizar la relación Many-to-Many con los países
+        if (countryId && Array.isArray(countryId)) {
+            const countries = await Country.findAll({
+                where: { id: countryId },
+                transaction: t,
+            });
+
+            if (countries.length !== countryId.length) {
+                return res.status(400).json({ error: 'One or more countries not found' });
+            }
+
+            // Borra todas las asociaciones existentes y luego agrega las nuevas
+            await activity.setCountries(countries, { transaction: t });
+        }
+
+        await activity.save({ transaction: t });
+        await t.commit();
+
+        return res.status(200).json({ success: 'ok', activity });
+    } catch (error) {
+        await t.rollback();
+        return res.status(500).json({ error: error.message });
+    }
 }
 
 module.exports = {
     createActivity,
     getActivity,
-    getAllActivities
+    getAllActivities,
+    deleteActivityByCountry,
+    upadetActivityById
+
+
 }

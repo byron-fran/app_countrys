@@ -8,17 +8,17 @@ import {
   filterByActivity
 } from "../redux/actions";
 
-const useHandlersFilters = (setCurrentPage, arrayActivities) => {
+const useHandlersFilters = (setCurrentPage) => {
   const dispatch = useDispatch();
-  const [activities, setActivities] = useState(arrayActivities)
+  // const [activities, setActivities] = useState(arrayActivities)
 
-  const handleOrderByName = (e) => {
+  const handleOrderByName = e => {
     const order = e.target.value;
     dispatch(orderByName(order))
     setCurrentPage(1)
   };
 
-  const handlerContinent = (e) => {
+  const handlerContinent = e => {
     const continent = e.target.value;
     dispatch(filterByContinent(continent));
     setCurrentPage(1)
@@ -43,8 +43,7 @@ const useHandlersFilters = (setCurrentPage, arrayActivities) => {
     handlerByPopulation,
     handleReserOrder,
     handlerByActivity,
-    activities,
-    setActivities
+
 
   }
 }

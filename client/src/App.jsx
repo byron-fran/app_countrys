@@ -18,7 +18,14 @@ function App() {
   const [error, setError] = useState(false);
   const [countriesFind, setCountriesFind] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [acivityExist, setAcivityExist] = useState(false);
+  const [infoActivity, setInfoActivity] = useState({
+    name : '',
+    difficulty : '',
+    duration : '',
+    season: '',
+    countryId :[]
+  });
 
   useEffect(() => {
     dispatch(loadCountries())
@@ -40,7 +47,7 @@ function App() {
         Navigate('/search');
       }
       catch (error) {
-        console.log(error.response.status)
+        //console.log(error.response.status)
         if (error.response.status === 404) {
           setCountriesFind([])
           setSearchCountry('')
@@ -48,25 +55,25 @@ function App() {
           Navigate('/search');
         }
       }
-
-
       return
     }
-
-
   }
 
   return (
     <>
-      
+
       <NavBar />
-      
       <SearchBar searchCountry={searchCountry} setSearchCountry={setSearchCountry} handleSubmit={handleSubmit} />
       <Routes>
         <Route path='/' element={<ListCountries currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
         <Route path='/search' element={<FindCountries error={error} countriesFind={countriesFind} />} />
-        <Route path='/detail/:id' element={<DetailCountry  />} />
-        <Route path='/form' element={<FormActivity />} />
+        <Route path='/detail/:id' element={<DetailCountry   setAcivityExist={setAcivityExist} 
+          acivityExist={acivityExist} infoActivity={infoActivity} setInfoActivity={setInfoActivity}  />} />
+        <Route path='/form' element={<FormActivity 
+          infoActivity={infoActivity} 
+          setInfoActivity={setInfoActivity} 
+          setAcivityExist={setAcivityExist} 
+          acivityExist={acivityExist} />}/>
       </Routes>
     </>
   )

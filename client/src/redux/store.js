@@ -7,3 +7,4 @@ export default createStore(
     reducer,
     composeWithDevTools(applyMiddleware(thunk))
 )
+

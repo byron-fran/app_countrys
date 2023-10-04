@@ -1,7 +1,7 @@
 const { Country} = require('../db')
 
 const filterByContinent = async (req, res) => {
-    const {name} = req.params
+    const {name} = req.params;
     try{
         const countries = await Country.findAll();
         const continentsByContinents = await countries.filter(country => country.continents === name);

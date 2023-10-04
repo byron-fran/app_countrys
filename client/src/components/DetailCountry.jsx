@@ -6,18 +6,22 @@ import axios from "axios";
 import '../styles/detailCountry.css'
 
 // eslint-disable-next-line react/prop-types
-const DetailCountry = () => {
+const DetailCountry = ({infoActivity, setInfoActivity,acivityExist, setAcivityExist}) => {
 
-    const [countryDetail, setCountryDetail] = useState({})
+    const [countryDetail, setCountryDetail] = useState({});
 
+    const [refreshData, setRefreshData] = useState(false);
+    // const [alerta, setAlerta] = useState(false)
     const { id } = useParams();
 
     useEffect(() => {
         const getCountry = async () => {
             try {
-
+                //setRefreshData(!true)
+                //console.log(refreshData)
                 const url = `http://localhost:3001/countries/${id}`
                 const { data } = await axios(url);
+              
                 setCountryDetail(data.success)
                 return data;
             }
@@ -25,7 +29,7 @@ const DetailCountry = () => {
         };
 
         getCountry();
-    }, [id])
+    }, [id,refreshData])
 
     if (countryDetail === undefined || countryDetail.Activities === undefined) return null;
 
@@ -46,7 +50,8 @@ const DetailCountry = () => {
 
                     {countryDetail.Activities && countryDetail.Activities.map(activity => {
                         return (
-                            <CardActivity key={activity.id} activity={activity} />
+                            <CardActivity key={activity.id} setAcivityExist={setAcivityExist} 
+                            acivityExist={acivityExist} activity={activity} setRefreshData={setRefreshData}   infoActivity={infoActivity} setInfoActivity={setInfoActivity}/>
                         )
                     })}
                 </div>

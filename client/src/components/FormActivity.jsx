@@ -1,31 +1,30 @@
-import { Fragment, useEffect } from "react"
+import { Fragment, useEffect, useState} from "react"
 import { useSelector } from "react-redux";
-import '../styles/form.css'
-
+import '../styles/form.css';
 import useFormValidate from "../hooks/useFormValidate";
 import useSelectValidate from "../hooks/useSelectValidate";
-const FormActivity = () => {
+import useCodeCountries from "../hooks/useCodeCountries";
 
-  const countries = useSelector(state => state.listCountries);
 
-  const arrayIdCountries = []
-  const objActivity = {
-    name : '',
-    difficulty : '',
-    duration : '',
-    season: '',
-    countryId :[]
-    } 
+const FormActivity = ({infoActivity, setInfoActivity,acivityExist, setAcivityExist}) => {
+    //inicializar objetos
 
   const objAlerta = {
     name : '',
-    difficulty : '',
+    difficulty : '',  
     duration : '',
     season: '',
     countryId :''
-  }
-  const { infoActivity,setInfoActivity, alerta,handlerSendInfo,exito} = useFormValidate(objActivity, objAlerta);
-  const { idCountries, hanlderSelectValue} = useSelectValidate(arrayIdCountries);
+  };
+
+  let codeCountries = []
+  const arrayIdCountries = [];
+
+  //Custom hooks
+  const { arrayCodeCountries } = useCodeCountries(codeCountries)
+  const { alerta,handlerSendInfo,exito} = useFormValidate(infoActivity, objAlerta,setInfoActivity);
+  const { idCountries, hanlderSelectValue,selectAlerta} = useSelectValidate(arrayIdCountries);
+
   
   useEffect(() => {
      if(idCountries.length> 0){
@@ -36,10 +35,10 @@ const FormActivity = () => {
 
   return (
     <>
-      {exito && (<p className="success">Se agregó nueva activiada con exito</p>)}
+      {exito && (<p className="success">{acivityExist ? 'Se Actualizo correctamente' : 'Se agregó nueva activiada con exito'}</p>)}
       <div className="container">
    
-      <form className="form_container" onSubmit={handlerSendInfo}>
+      <form className="form_container" onSubmit={handlerSendInfo} >
         <div>
           {alerta.name && (<p className="alerta">{alerta.name}</p>)}
           <label htmlFor="nombre">Nombre de la actividad</label>
@@ -59,7 +58,7 @@ const FormActivity = () => {
         <div>
         {alerta.duration && (<p className="alerta">{alerta.duration}</p>)}
           <label htmlFor="duracion">Duracion</label>
-          <input type="text" id="duracion" placeholder="Ej. 5 horas, max-10"
+          <input type="text" id="duracion" placeholder="Ej. 5, max-24"
           value={infoActivity.duration}
           onChange={e => setInfoActivity({...infoActivity, duration: e.target.value})} />
          
@@ -81,11 +80,13 @@ const FormActivity = () => {
         </div>
         <div  className="div_select">
         {alerta.countryId && (<p className="alerta">{alerta.countryId}</p>)}
-            <select name="" id="" onChange={ hanlderSelectValue}>
-              <option>--Selecciona uno o más Paises--</option>        
-                {countries.length > 0 && countries.map(country => (
+        {selectAlerta && (<p className="alerta">Selecciona un pais valido</p>)}
+        <label name="country" id="country"  htmlFor="">Selecciona un pais</label>
+            <select id="country"  onChange={ hanlderSelectValue}>
+             <option value=''>--selecciona un pais--</option>
+                { arrayCodeCountries.length > 0 && arrayCodeCountries.map(country => (
                   <Fragment key={country.id}>
-                   <option value={country.id}  >{country.name}</option>
+                   <option id="country"  value={country.id}  >{country.name}</option>
                   </Fragment>
                
               ))}
@@ -93,7 +94,7 @@ const FormActivity = () => {
             </select>
         </div>
         <div>
-          <button className="btn_add" type="submit">Agregar Actividad </button>
+          <button className="btn_add" type="submit">{acivityExist ? 'Actualizar actividad' : 'Agregar Actividad '}</button>
         </div>
       </form>
       

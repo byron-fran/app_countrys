@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Country, Activity} = require('../db')
+const { Country, Activity} = require('../db');
 
 const saveCountries = async () => {
     const url = 'http://localhost:5000/countries';
@@ -16,7 +16,7 @@ const saveCountries = async () => {
                 continents: data[i].continents[0],
                 subregion: data[i].subregion,
                 capital: data[i].capital
-            }
+            };
             //Guarda los datos
             await Country.findOrCreate({
                 where: {

@@ -119,3 +119,31 @@
     display: flex;
     justify-content: space-between;
 }
+.info_botones{
+    display: flex;
+    column-gap: 1rem;
+   
+}
+.info_botones button:nth-child(1){
+    background: #4f45e5;
+    border: none;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+
+
+}
+.info_botones button:nth-child(2){
+    background: red;
+    border: none;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+
+
+
+}
