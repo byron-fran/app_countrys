@@ -357,6 +357,7 @@
   .active{
     background:#074FD6;
     color: #fff;
+    border: none;
     padding: 0.5rem;
     border-radius: 10px;
     width: 35px;

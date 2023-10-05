@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CardCountry from "./CardCountry";
-
-
+import CardCountry from "../components/CardCountry";
 
 // eslint-disable-next-line react/prop-types
 const FindCountries = ({ error, countriesFind }) => {

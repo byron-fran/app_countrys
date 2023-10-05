@@ -1,17 +1,17 @@
 import { useEffect,} from "react";
 import { useSelector, } from "react-redux"
-import CardCountry from "./CardCountry";
-import Filters from "./Filters";
+import CardCountry from "../components/CardCountry";
+import SelectFilters from "../components/SelectFilters";
 import { generarId } from "../helpers";
 import '../styles/listCountries.css'
 
 // eslint-disable-next-line react/prop-types
-const ListCountries = ({currentPage, setCurrentPage}) => {
+const ListCountries = ({currentPage, setCurrentPage, setFormModal,bottonFloat,  setBottoFloat}) => {
   const countries = useSelector(state => state.listCountries);
 
   useEffect(() => {
 
-  }, [countries])
+  }, [countries]);
 
   if (countries === undefined || countries.length <= 0) return null;
 
@@ -26,8 +26,8 @@ const ListCountries = ({currentPage, setCurrentPage}) => {
   const totalPages = Math.ceil(countries.length / countryPerPage);
 
   return (
-    <>
-      <Filters currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    <div onClick={() => setFormModal(false)} >
+      <SelectFilters setCurrentPage={setCurrentPage} />
       <div className="countries_card">
         {currentCountries.length > 0 && currentCountries.map(country => {
           return (
@@ -51,7 +51,7 @@ const ListCountries = ({currentPage, setCurrentPage}) => {
       </div>
 
 
-    </>
+    </div>
   )
 }
 

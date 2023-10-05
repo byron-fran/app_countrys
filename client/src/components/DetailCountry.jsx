@@ -6,7 +6,7 @@ import axios from "axios";
 import '../styles/detailCountry.css'
 
 // eslint-disable-next-line react/prop-types
-const DetailCountry = ({infoActivity, setInfoActivity,acivityExist, setAcivityExist}) => {
+const DetailCountry = ({ setInfoActivity, setAcivityExist, setFormModal,  setBottoFloat}) => {
 
     const [countryDetail, setCountryDetail] = useState({});
 
@@ -14,6 +14,7 @@ const DetailCountry = ({infoActivity, setInfoActivity,acivityExist, setAcivityEx
     // const [alerta, setAlerta] = useState(false)
     const { id } = useParams();
 
+    
     useEffect(() => {
         const getCountry = async () => {
             try {
@@ -50,8 +51,14 @@ const DetailCountry = ({infoActivity, setInfoActivity,acivityExist, setAcivityEx
 
                     {countryDetail.Activities && countryDetail.Activities.map(activity => {
                         return (
-                            <CardActivity key={activity.id} setAcivityExist={setAcivityExist} 
-                            acivityExist={acivityExist} activity={activity} setRefreshData={setRefreshData}   infoActivity={infoActivity} setInfoActivity={setInfoActivity}/>
+                            <CardActivity 
+                                key={activity.id} 
+                                setAcivityExist={setAcivityExist}
+                                setFormModal={setFormModal} 
+                                activity={activity} 
+                                setRefreshData={setRefreshData}   
+                                setInfoActivity={setInfoActivity}
+                                setBottoFloat={setBottoFloat}/>
                         )
                     })}
                 </div>

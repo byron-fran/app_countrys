@@ -1,9 +1,9 @@
 import '../styles/searchbar.css'
-import { NavLink } from 'react-router-dom';
+
 import { useLocation } from 'react-router-dom';
 import '../styles/header.css'
 // eslint-disable-next-line react/prop-types
-const SearchBar = ({ searchCountry, setSearchCountry, handleSubmit }) => {
+const SearchBar = ({ searchCountry, setSearchCountry, handleSubmit, setFormModal, setBottoFloat, bottonFloat}) => {
   const location = useLocation()
   return (
     <>
@@ -19,7 +19,11 @@ const SearchBar = ({ searchCountry, setSearchCountry, handleSubmit }) => {
             </div>
       
               <div className='btn_absolute'>
-                  <NavLink to='/form'><button  className='btn_float'>+</button></NavLink>
+                {bottonFloat && (
+                  <button  className='btn_float' onClick={()=>{ 
+                    setBottoFloat(false)
+                    setFormModal(true)}}>+</button>
+                )}
               </div>
             
           </div>

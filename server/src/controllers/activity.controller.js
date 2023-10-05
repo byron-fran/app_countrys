@@ -88,7 +88,7 @@ const upadetActivityById = async (req = request, res = response) => {
         activity.duration = duration;
         activity.season = season;
 
-        // Actualizar la relación Many-to-Many con los países
+        // Actualizar la relación Many-to-Many con los paises
         if (countryId && Array.isArray(countryId)) {
             const countries = await Country.findAll({
                 where: { id: countryId },

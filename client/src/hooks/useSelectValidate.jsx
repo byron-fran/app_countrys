@@ -16,7 +16,7 @@ const useSelectValidate = (arrayIdCountries) => {
             return
         }
         else{
-          const idFound = idCountries.find(ids => ids === id);
+          const idFound = idCountries.find(_id => _id === id);
           setSelectAlerta(false)
           if(!idFound){
             setIdCountries([...idCountries,id]);

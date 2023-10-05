@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom";
-import useFormValidate from "../hooks/useFormValidate";
+// import { useNavigate } from "react-router-dom";
+
 
 // eslint-disable-next-line react/prop-types
-const CardActivity = ({ activity,setRefreshData,infoActivity, setInfoActivity ,acivityExist, setAcivityExist}) => {
+const CardActivity = ({ activity,setRefreshData, setInfoActivity , setAcivityExist, setFormModal,  setBottoFloat}) => {
  
-  const Navigate  = useNavigate();
+  // const Navigate  = useNavigate();
   // eslint-disable-next-line react/prop-types
 
   const deleteActivity = async id => {
@@ -25,14 +25,12 @@ const CardActivity = ({ activity,setRefreshData,infoActivity, setInfoActivity ,a
     await deleteActivity(id)
   }
   const handleUpdate = () => {
-   
-    Navigate('/form');
-    console.log('actualizando')
-    //console.log(activity)
-    setAcivityExist(true)
-    setInfoActivity(activity)
+    setFormModal(true);
+    setBottoFloat(false);
+    setAcivityExist(true);
+    setInfoActivity(activity);
   }
-  const { name, difficulty, duration, id} = activity
+  const { name, difficulty, duration} = activity
   return (
     <div className="card_activity">
       <div>

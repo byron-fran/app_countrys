@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 const useActivities = () => {
     const [activities, setActivities] = useState([])
     useEffect(() => {

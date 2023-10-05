@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loadCountries } from './redux/actions';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
-import ListCountries from './components/ListCountries';
+import ListCountries from './views/ListCountries';
 import SearchBar from './components/SearchBar';
-import FindCountries from './components/FindCountries';
+import FindCountries from './views/FindCountries';
 import DetailCountry from './components/DetailCountry';
 import NavBar from './components/NavBar';
-import FormActivity from './components/FormActivity';
+import FormModal from './views/FormModal';
 import './App.css'
 import axios from 'axios';
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +21,9 @@ function App() {
   const [countriesFind, setCountriesFind] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [acivityExist, setAcivityExist] = useState(false);
+  const [formModal, setFormModal] = useState(false);
+  const [bottonFloat, setBottoFloat] = useState(true);
+  const [refreshData, setRefreshData] = useState(false)
   const [infoActivity, setInfoActivity] = useState({
     name : '',
     difficulty : '',
@@ -31,7 +36,21 @@ function App() {
     dispatch(loadCountries())
   }, []);
 
-
+  useEffect(() => {
+    if(!formModal){
+      setAcivityExist(false)
+      setInfoActivity({
+        ...infoActivity,
+        name : '',
+        difficulty : '',
+        duration : '',
+        season: '',
+        countryId :[]
+      })
+      return
+    }
+  }, [formModal]);
+  
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -60,22 +79,58 @@ function App() {
   }
 
   return (
-    <>
+    <div >
+        {formModal && <FormModal
+          formModal={formModal}
+          setFormModal={setFormModal}
+          infoActivity={infoActivity}
+          setInfoActivity={setInfoActivity}
+          acivityExist={acivityExist}
+          setAcivityExist={setAcivityExist}
+          setBottoFloat={setBottoFloat}
+          />}
 
       <NavBar />
-      <SearchBar searchCountry={searchCountry} setSearchCountry={setSearchCountry} handleSubmit={handleSubmit} />
+      <SearchBar 
+        searchCountry={searchCountry} 
+        setSearchCountry={setSearchCountry} 
+        handleSubmit={handleSubmit} 
+        formModal={formModal}
+        setFormModal={setFormModal}
+        setAcivityExist={setAcivityExist}
+        setBottoFloat={setBottoFloat}
+        bottonFloat={bottonFloat}/>
+        
       <Routes>
-        <Route path='/' element={<ListCountries currentPage={currentPage} setCurrentPage={setCurrentPage} />} />
-        <Route path='/search' element={<FindCountries error={error} countriesFind={countriesFind} />} />
-        <Route path='/detail/:id' element={<DetailCountry   setAcivityExist={setAcivityExist} 
-          acivityExist={acivityExist} infoActivity={infoActivity} setInfoActivity={setInfoActivity}  />} />
-        <Route path='/form' element={<FormActivity 
+        <Route path='/' element={<ListCountries 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage} 
+          setFormModal={setFormModal}
+          formModal={formModal}
+          bottonFloat={bottonFloat}
+          setBottoFloat={setBottoFloat}
+     
+          />}
+           />
+        <Route path='/search' element={<FindCountries 
+          error={error} 
+          countriesFind={countriesFind}
+          bottonFloat={bottonFloat}
+          setBottoFloat={setBottoFloat}
+           />} />
+        <Route path='/detail/:id' element={<DetailCountry
+
+          setAcivityExist={setAcivityExist} 
+          acivityExist={acivityExist} 
           infoActivity={infoActivity} 
           setInfoActivity={setInfoActivity} 
-          setAcivityExist={setAcivityExist} 
-          acivityExist={acivityExist} />}/>
+          formModal={formModal}
+          setFormModal={setFormModal}
+          setBottoFloat={setBottoFloat}
+          />} />
+   
       </Routes>
-    </>
+    </div>
   )
 }
 
