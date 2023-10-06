@@ -14,7 +14,8 @@ const SelectForm = ({ formModal,
     selectAlerta,
     arrayCodeCountries,
     hanlderSelectValue,
-    setBottoFloat
+    setBottoFloat,
+    bottonVisble
 
 }) => {
 
@@ -83,7 +84,9 @@ const SelectForm = ({ formModal,
                             </select>
                         </div>
                         <div>
-                            <button className="btn_add" type="submit">{acivityExist ? 'Actualizar actividad' : 'Agregar Nueva Actividad '}</button>
+                            {bottonVisble && (
+                                <button className="btn_add" type="submit">{acivityExist ? 'Actualizar actividad' : 'Agregar Nueva Actividad '}</button>
+                            )}
                         </div>
                     </form>
                 </div>

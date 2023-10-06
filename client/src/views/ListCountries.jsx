@@ -1,33 +1,28 @@
-import { useEffect,} from "react";
+import { useEffect, } from "react";
 import { useSelector, } from "react-redux"
-import CardCountry from "../components/CardCountry";
+import CardCountry from "./CardCountry";
 import SelectFilters from "../components/SelectFilters";
 import { generarId } from "../helpers";
+import usePagination from "../hooks/usePagination";
 import '../styles/listCountries.css'
 
 // eslint-disable-next-line react/prop-types
-const ListCountries = ({currentPage, setCurrentPage, setFormModal,bottonFloat,  setBottoFloat}) => {
-  const countries = useSelector(state => state.listCountries);
+const ListCountries = ({ currentPage, setCurrentPage, setFormModal, refreshData }) => {
 
+  const countries = useSelector(state => state.listCountries);
+  const { currentCountries, listBottons } = usePagination(currentPage, countries)
   useEffect(() => {
 
   }, [countries]);
 
   if (countries === undefined || countries.length <= 0) return null;
 
-
-  const countryPerPage = 12;
-
-  const indexOfLastCountry = currentPage * countryPerPage;
-
-  const indexOfFirstCountry = indexOfLastCountry - countryPerPage;
-  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
-
-  const totalPages = Math.ceil(countries.length / countryPerPage);
-
   return (
     <div onClick={() => setFormModal(false)} >
-      <SelectFilters setCurrentPage={setCurrentPage} />
+      <SelectFilters
+        setCurrentPage={setCurrentPage}
+        refreshData={refreshData}/>
+
       <div className="countries_card">
         {currentCountries.length > 0 && currentCountries.map(country => {
           return (
@@ -38,16 +33,12 @@ const ListCountries = ({currentPage, setCurrentPage, setFormModal,bottonFloat,  
 
       </div>
       <div className="list_buttons">
-        {Array.from({ length: totalPages }).map((_, index) => {
-          const pageNumber = index + 1;
+        {listBottons.map(botton => {
           return (
-            <button key={generarId()} 
-            onClick={() => setCurrentPage(pageNumber)}
-            className={currentPage === pageNumber ? 'active' : 'noActive'}>
-              {pageNumber}
-            </button>
-          )
-        })}
+            <button
+              onClick={() => setCurrentPage(botton)}
+              key={generarId()}
+              className={currentPage === botton ? 'active' : 'noActive'}>{botton}</button>)})}
       </div>
 
 

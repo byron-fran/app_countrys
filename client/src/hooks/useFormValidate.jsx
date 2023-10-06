@@ -1,20 +1,15 @@
 import { useState,} from "react"
-import axios from "axios";
-import useActivities from "./useActivities";
+import useCreateOrUpdate from "./useCreateOrUpdate";
 
-const useFormValidate = ( infoActivity, objAlerta,setInfoActivity,setFormModal ) => {
+const useFormValidate = ( infoActivity, objAlerta,setInfoActivity,setFormModal,setRefreshData,setBottoFloat,setBottonVisible) => {
     const [exito, setExito] = useState(false);
-
+    const {createOrUpdate} = useCreateOrUpdate(setInfoActivity, setFormModal,setExito,setRefreshData,setBottoFloat,setBottonVisible)
     const [alerta, setAlerta] = useState(objAlerta);
-    const {activities} = useActivities()
-
+ 
     const handlerSendInfo = async e => {
         e.preventDefault();
-  
         //hacer Valiaciones
-
-        //split(' ').join('')
-          console.log(infoActivity)
+          //console.log(infoActivity)
           if(infoActivity.name.split(' ').join('').length <= 0){
             setAlerta({...alerta, name : 'Este campo no debe ir vacio'})
             return
@@ -77,83 +72,10 @@ const useFormValidate = ( infoActivity, objAlerta,setInfoActivity,setFormModal )
             season: '',
             countryId :'',
             
+            
           });
           //Comprobar si existe para actulalizar
-          const activityExist = activities.find(activity => activity.id === infoActivity.id);
-          if(activityExist){
-            //Actulizar el activity
-           
-            const url=  `http://localhost:3001/activities/${activityExist.id}`;
-            try{
-              const {data} = await axios.put(url, infoActivity);
-              console.log(data)
-              setExito(true)
-              setInfoActivity({...infoActivity,
-                name : '',
-                difficulty : '',
-                duration : '',
-                season: '',
-            
-              });
-    
-              setTimeout(() => {
-                setExito(false);
-                setFormModal(false)
-              }, 2000)
-              //console.log(data)
-            }
-            catch(error){
-              setExito(false) 
-              setFormModal(false)
-              console.log(error) ;
-              setInfoActivity({...infoActivity,
-                name : '',
-                difficulty : '',
-                duration : '',
-                season: '',
-      
-                });
-            }
-          }
-          else{
-          
-          const url = `http://localhost:3001/activities`;
-          try{
-            const {data} = await axios.post(url, infoActivity);
-            console.log(data)
-            setExito(true)
-            setInfoActivity({...infoActivity,
-              name : '',
-              difficulty : '',
-              duration : '',
-              season: '',
-          
-            });
-  
-            setTimeout(() => {
-              setExito(false)
-            }, 3000)
-            //console.log(data)
-          }
-          catch(error){
-            setExito(false) 
-            console.log(error) ;
-            setInfoActivity({...infoActivity,
-              name : '',
-              difficulty : '',
-              duration : '',
-              season: '',
-    
-              });
-          }
-          
-          // console.log(activities)
-          // console.log(infoActivity)
-          //Enviar los datos del activity al server
-          return
-  
-        }
-     
+          await createOrUpdate(infoActivity)
        
       };
     

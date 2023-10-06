@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CardCountry from "../components/CardCountry";
+import CardCountry from "./CardCountry";
+import usePagination from "../hooks/usePagination";
+import { generarId } from "../helpers";
 
 // eslint-disable-next-line react/prop-types
-const FindCountries = ({ error, countriesFind }) => {
-
+const FindCountries = ({ error, countriesFind, currentPage,setCurrentPage }) => {
+  const {currentCountries, listBottons} = usePagination( currentPage, countriesFind)
   const Navigate = useNavigate()
   useEffect(() => {
     // eslint-disable-next-line react/prop-types
@@ -22,9 +24,18 @@ const FindCountries = ({ error, countriesFind }) => {
         <div className="countries_card">
          
           {/*  eslint-disable-next-line react/prop-types */}
-          {countriesFind && countriesFind.map(country => {
+          {currentCountries && currentCountries.map(country => {
             return (
               <CardCountry key={country.id} country={country} />
+            )
+          })}
+        </div>
+        <div className="list_buttons">
+          {listBottons.map(botton => {
+            return (
+              <button key={generarId()}
+                onClick={() => setCurrentPage(botton)}
+                className={currentPage === botton ? 'active' : 'noActive'}>{botton}</button>
             )
           })}
         </div>

@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate, } from 'react-router-dom';
 import ListCountries from './views/ListCountries';
 import SearchBar from './components/SearchBar';
 import FindCountries from './views/FindCountries';
-import DetailCountry from './components/DetailCountry';
+import DetailCountry from './views/DetailCountry';
 import NavBar from './components/NavBar';
 import FormModal from './views/FormModal';
 import './App.css'
@@ -23,7 +23,8 @@ function App() {
   const [acivityExist, setAcivityExist] = useState(false);
   const [formModal, setFormModal] = useState(false);
   const [bottonFloat, setBottoFloat] = useState(true);
-  const [refreshData, setRefreshData] = useState(false)
+  const [refreshData, setRefreshData] = useState(false);
+  const [bottonVisble, setBottonVisible] = useState(true)
   const [infoActivity, setInfoActivity] = useState({
     name : '',
     difficulty : '',
@@ -88,6 +89,10 @@ function App() {
           acivityExist={acivityExist}
           setAcivityExist={setAcivityExist}
           setBottoFloat={setBottoFloat}
+          refreshData={refreshData}
+          setRefreshData={setRefreshData}
+          bottonVisble={bottonVisble}
+          setBottonVisible={setBottonVisible}
           />}
 
       <NavBar />
@@ -109,14 +114,15 @@ function App() {
           formModal={formModal}
           bottonFloat={bottonFloat}
           setBottoFloat={setBottoFloat}
+          refreshData={refreshData}
      
           />}
            />
         <Route path='/search' element={<FindCountries 
           error={error} 
           countriesFind={countriesFind}
-          bottonFloat={bottonFloat}
-          setBottoFloat={setBottoFloat}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
            />} />
         <Route path='/detail/:id' element={<DetailCountry
 
@@ -127,6 +133,8 @@ function App() {
           formModal={formModal}
           setFormModal={setFormModal}
           setBottoFloat={setBottoFloat}
+          refreshData={refreshData}
+          setRefreshData={setRefreshData}
           />} />
    
       </Routes>

@@ -2,7 +2,7 @@ import { useState, } from "react"
 
 const useSelectValidate = (arrayIdCountries) => {
     const [idCountries, setIdCountries] = useState(arrayIdCountries);
-    const [selectedValue, setSelectedValue] = useState('');
+  //  const [selectedValue, setSelectedValue] = useState('');
     const [selectAlerta, setSelectAlerta] = useState(false)
     const hanlderSelectValue = e => {
       //   setSelectedValue(e.target.value);
@@ -21,7 +21,7 @@ const useSelectValidate = (arrayIdCountries) => {
           if(!idFound){
             setIdCountries([...idCountries,id]);
             return
-          };
+          }
         }
     }
 

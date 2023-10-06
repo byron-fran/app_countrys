@@ -6,11 +6,11 @@ import axios from "axios";
 import '../styles/detailCountry.css'
 
 // eslint-disable-next-line react/prop-types
-const DetailCountry = ({ setInfoActivity, setAcivityExist, setFormModal,  setBottoFloat}) => {
+const DetailCountry = ({ setInfoActivity, setAcivityExist, setFormModal,  setBottoFloat,refreshData,setRefreshData}) => {
 
     const [countryDetail, setCountryDetail] = useState({});
 
-    const [refreshData, setRefreshData] = useState(false);
+   // const [refreshData, setRefreshData] = useState(false);
     // const [alerta, setAlerta] = useState(false)
     const { id } = useParams();
 
@@ -56,7 +56,7 @@ const DetailCountry = ({ setInfoActivity, setAcivityExist, setFormModal,  setBot
                                 setAcivityExist={setAcivityExist}
                                 setFormModal={setFormModal} 
                                 activity={activity} 
-                                setRefreshData={setRefreshData}   
+                                setRefreshData={ setRefreshData}   
                                 setInfoActivity={setInfoActivity}
                                 setBottoFloat={setBottoFloat}/>
                         )

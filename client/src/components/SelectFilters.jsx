@@ -5,9 +5,9 @@ import '../styles/filters.css'
 import useActivities from "../hooks/useActivities";
 
 // eslint-disable-next-line react/prop-types
-const SelectFilters = ({ setCurrentPage}) => {
+const SelectFilters = ({ setCurrentPage,  refreshData}) => {
     const countries = useSelector(state => state.listCountries);
-    const { activities } = useActivities();
+    const { activities } = useActivities(refreshData);
     const {
         handleOrderByName,
         handlerContinent,
