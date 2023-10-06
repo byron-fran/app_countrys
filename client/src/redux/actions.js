@@ -42,7 +42,7 @@ export const orderByName = (order, continent, population) => {
 //O
 export const orderByPopulation = (order, continent, population) => {
     return async dispatch => {
-        const url = `http://localhost:3001/countries?orderByPopulation=${population}&orderByName=${order}&continent=${continent}`;
+        const url = `http://localhost:3001/countries?orderByPopulation=${population}&continent=${continent}`;
         try{
             const {data} = await axios(url);
             return dispatch({

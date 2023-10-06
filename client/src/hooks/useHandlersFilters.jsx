@@ -35,7 +35,7 @@ const useHandlersFilters = (setCurrentPage) => {
   const handlerByPopulation = e => {
    // console.log(population)
     SetPopulation(e.target.value);
-    console.log(e.target.value)
+    //console.log(e.target.value)
     dispatch(orderByPopulation(name, continent,  e.target.value))
     setCurrentPage(1)
   };

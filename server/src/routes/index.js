@@ -1,9 +1,6 @@
 const { Router } = require("express");
 const  {getCountries, getCountrieById} = require('../controllers/countries.controller')
 const {createActivity, getActivity, getAllActivities, deleteActivityByCountry, upadetActivityById} = require('../controllers/activity.controller')
-const {filterByContinent, orderByName,orderByPopulation } = require('../controllers/filtres')
-
-
 
 const router = Router();
 
@@ -19,8 +16,5 @@ router.get('/activitesAll',  getAllActivities)
 router.delete('/activities/:id', deleteActivityByCountry);
 router.put('/activities/:id',upadetActivityById )
 
-//Filters
-router.get('/countriesFilters/:name?', filterByContinent);
-router.get('/countriesOrders/:name?', orderByName);
-router.get('/countriesPopulation/:name?', orderByPopulation)
+
 module.exports = router;

@@ -21,7 +21,10 @@ const ListCountries = ({ currentPage, setCurrentPage, setFormModal, refreshData 
     <div onClick={() => setFormModal(false)} >
       <SelectFilters
         setCurrentPage={setCurrentPage}
-        refreshData={refreshData}/>
+        refreshData={refreshData}
+        />
+        
+
 
       <div className="countries_card">
         {currentCountries.length > 0 && currentCountries.map(country => {

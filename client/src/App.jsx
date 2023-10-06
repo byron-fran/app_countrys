@@ -24,7 +24,7 @@ function App() {
   const [formModal, setFormModal] = useState(false);
   const [bottonFloat, setBottoFloat] = useState(true);
   const [refreshData, setRefreshData] = useState(false);
-  const [bottonVisble, setBottonVisible] = useState(true)
+  const [bottonVisble, setBottonVisible] = useState(true);
   const [infoActivity, setInfoActivity] = useState({
     name : '',
     difficulty : '',
@@ -93,6 +93,8 @@ function App() {
           setRefreshData={setRefreshData}
           bottonVisble={bottonVisble}
           setBottonVisible={setBottonVisible}
+
+
           />}
 
       <NavBar />
@@ -115,6 +117,7 @@ function App() {
           bottonFloat={bottonFloat}
           setBottoFloat={setBottoFloat}
           refreshData={refreshData}
+   
      
           />}
            />

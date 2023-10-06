@@ -8,7 +8,7 @@ import SelectForm from '../components/SelectForm';
 import '../styles/formModal.css';
 
 
-const FormModal = ({ formModal, setFormModal, infoActivity, setInfoActivity, acivityExist, setBottoFloat,setRefreshData,bottonVisble,setBottonVisible}) => {
+const FormModal = ({ formModal, setFormModal, infoActivity, setInfoActivity, acivityExist, setBottoFloat,setRefreshData,bottonVisble,setBottonVisible,}) => {
   const objAlerta = {
     name: '',
     difficulty: '',
@@ -23,7 +23,7 @@ const FormModal = ({ formModal, setFormModal, infoActivity, setInfoActivity, aci
   //Custom hooks
   const { arrayCodeCountries } = useCodeCountries(codeCountries)
   const { alerta, handlerSendInfo, exito } = useFormValidate(infoActivity, objAlerta, setInfoActivity,setFormModal,setRefreshData,setBottoFloat,setBottonVisible);
-  const { idCountries, hanlderSelectValue, selectAlerta } = useSelectValidate(arrayIdCountries);
+  const { idCountries, hanlderSelectValue, selectAlerta } = useSelectValidate(arrayIdCountries,);
 
 
   useEffect(() => {
@@ -50,6 +50,7 @@ const FormModal = ({ formModal, setFormModal, infoActivity, setInfoActivity, aci
         hanlderSelectValue={hanlderSelectValue}
         setBottoFloat={setBottoFloat}
         bottonVisble={bottonVisble}
+   
       />
 
     </>
