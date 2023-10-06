@@ -3,8 +3,13 @@ const { Country, Activity} = require('../db')
 const axios = require('axios');
 
 const getCountries = async (req, res) => {
-    const {name} = req.query;
-    
+    // const {name} = req.query;
+    const { continent, activity, orderByName, orderByPopulation,name } = req.query;
+
+    const queryOptions = {
+        where: {},
+        order: []
+    };
     try {
         if(name){
             const countriesFind = await Country.findAll({
@@ -17,14 +22,35 @@ const getCountries = async (req, res) => {
             if (!countriesFind.length) return res.status(404).json({ country: "Not Found" });
             return res.status(200).json({ success: countriesFind });
         }
-        else{
-
-        const countries = await Country.findAll();
-
-        if(!countries){ return res.status(404).json({error : "not found"})}
-        
-        return res.status(200).json({ success: countries})
+        if (continent) {
+            queryOptions.where.continents = continent;
         }
+    
+        // Si se proporciona una actividad, añade el filtro
+        // Suponiendo que "activities" es un campo de tipo array en tu modelo
+        if (activity) {
+            queryOptions.where.activities = Sequelize.Op.contains([activity]);
+        }
+    
+        // Si se proporciona un criterio de ordenación, añade el ordenamiento
+        if (orderByName) {
+            queryOptions.order.push(['name', orderByName]);  // e.g. ['name', 'ASC']
+        }
+    
+        if (orderByPopulation) {
+            queryOptions.order.push(['population', orderByPopulation]);
+        }
+    
+        try {
+            const countries = await Country.findAll(queryOptions);
+            if (!countries || !countries.length) {
+                return res.status(404).json({ error: "not found" });
+            }
+            return res.status(200).json(countries);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    
         //Obtener todos los paises 
   
     }
@@ -47,16 +73,9 @@ const getCountrieById = async (req, res) => {
 
 };
 
-const searchCountryByaName = async (req, res) => {
-    const { name } = req.query
-    console.log(name)
-    return res.status(200).json({
-        success: name
-    })
-}
 
 module.exports = {
     getCountrieById,
     getCountries,
-    searchCountryByaName
+
 }

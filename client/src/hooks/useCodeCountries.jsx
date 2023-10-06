@@ -6,7 +6,7 @@ const useCodeCountries = (codeCountries) => {
         const getCodes = async () => {
           const url = 'http://localhost:3001/countries/';
           const {data} =await axios(url);
-          setArrayCountries(data.success.sort((a, b) => a.name.localeCompare(b.name)));
+          setArrayCountries(data.sort((a, b) => a.name.localeCompare(b.name)));
           return data
         };
         getCodes();

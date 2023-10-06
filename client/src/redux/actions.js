@@ -24,14 +24,15 @@ export const loadCountries = () => {
 };
 
 
-export const orderByName = order => {
+export const orderByName = (order, continent, population) => {
     return async dispatch => {
         try{
-            const url = `http://localhost:3001/countriesOrders/${order}`;
+            const url = `http://localhost:3001/countries?orderByName=${order}&continent=${continent}&orderByPopulation=${population}`;
             const {data} = await axios(url);
+            // console.log(data)
             return dispatch({
                 type : ORDER_BY_NAME,
-                payload : data.OrderByName
+                payload : data
             })
         }
         catch(error) { console.log(error.message) }
@@ -39,14 +40,14 @@ export const orderByName = order => {
 };
 
 //O
-export const orderByPopulation = name => {
+export const orderByPopulation = (order, continent, population) => {
     return async dispatch => {
-        const url = `http://localhost:3001/countriesPopulation/${name}`
+        const url = `http://localhost:3001/countries?orderByPopulation=${population}&orderByName=${order}&continent=${continent}`;
         try{
             const {data} = await axios(url);
             return dispatch({
                 type : ORDER_BY_POPULATION,
-                payload : data.countriesByPopulation 
+                payload : data
             })
         }
         catch(error) { console.log(error.message)}
@@ -54,14 +55,14 @@ export const orderByPopulation = name => {
 };
 
 //Filtrar por continente
-export const filterByContinent = continent => {
+export const filterByContinent =  (order, continent, population) => {
     return async dispatch =>{
         try{
-            const url = `http://localhost:3001/countriesFilters/${continent}`
+            const url = `http://localhost:3001/countries?continent=${continent}&orderByPopulation=${population}&orderByName=${order}`;
             const {data} = await axios(url);
             return dispatch({
                 type : FILERT_BY_CONTINENT,
-                payload : data.continentsByContinents
+                payload : data
             })
         }
         catch(error) {console.log(error.message)}

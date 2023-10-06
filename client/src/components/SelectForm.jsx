@@ -18,15 +18,25 @@ const SelectForm = ({ formModal,
     bottonVisble
 
 }) => {
-
+    const handleClearForm = () => {
+        setBottoFloat(true);
+        setFormModal(false);
+        setInfoActivity({
+            ...infoActivity,
+            name : '',
+            difficulty : '',
+            duration : '',
+            season: '',
+            countryId :[],
+            id : ''
+        })
+    }
     return (
         <>
             <div className='modal' style={{ display: formModal ? 'block' : 'none' }}>
 
                 <div className='form_modal'>
-                    <button className='btn_modal' onClick={() => {
-                        setBottoFloat(true)
-                        setFormModal(false)}}>X</button>
+                    <button className='btn_modal' onClick={handleClearForm}>X</button>
                     <form className="form_container" onSubmit={handlerSendInfo} >
                         {exito && (<p className="success">{acivityExist ? 'Se Actualizo correctamente' : 'Se agregó nueva activiada con exito'}</p>)}
                         <div>

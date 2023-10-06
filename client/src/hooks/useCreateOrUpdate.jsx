@@ -22,7 +22,8 @@ const useCreateOrUpdate = (setInfoActivity, setFormModal, setExito,setRefreshDat
                     difficulty: '',
                     duration: '',
                     season: '',
-                    countryId : []
+                    countryId : [],
+                    id : ''
 
                 });
 
@@ -46,7 +47,8 @@ const useCreateOrUpdate = (setInfoActivity, setFormModal, setExito,setRefreshDat
                     difficulty: '',
                     duration: '',
                     season: '',
-                    countryId : []
+                    countryId : [],
+                    id : ''
 
                 });
             }

@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   orderByName,
@@ -9,25 +9,37 @@ import {
 } from "../redux/actions";
 
 const useHandlersFilters = (setCurrentPage) => {
+  const [name, setName] = useState('');
+  const[continent, setOrderContinent] = useState('');
+  const [population, SetPopulation] = useState('')
   const dispatch = useDispatch();
   // const [activities, setActivities] = useState(arrayActivities)
 
+  useEffect(() => {
+
+  }, [name, population, continent])
   const handleOrderByName = e => {
-    const order = e.target.value;
-    dispatch(orderByName(order))
+    setName(e.target.value)
+    //console.log(name)
+    dispatch(orderByName(e.target.value, continent, population))
     setCurrentPage(1)
   };
 
   const handlerContinent = e => {
-    const continent = e.target.value;
-    dispatch(filterByContinent(continent));
+    //console.log(continent)
+    setOrderContinent (e.target.value)
+    dispatch(filterByContinent(name, e.target.value, population));
     setCurrentPage(1)
   }
+
   const handlerByPopulation = e => {
-    const population = e.target.value;
-    dispatch(orderByPopulation(population))
+   // console.log(population)
+    SetPopulation(e.target.value);
+    console.log(e.target.value)
+    dispatch(orderByPopulation(name, continent,  e.target.value))
     setCurrentPage(1)
   };
+
   const handleReserOrder = () => {
     dispatch(loadCountries())
     setCurrentPage(1)

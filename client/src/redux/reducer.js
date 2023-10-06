@@ -15,7 +15,7 @@ export const reducer = (state = initialState, action) => {
         case LOAD_COUNTRIES:
             return {
                 ...state,
-                listCountries: action.payload.success
+                listCountries: action.payload
             }
 
         case FILERT_BY_CONTINENT:
