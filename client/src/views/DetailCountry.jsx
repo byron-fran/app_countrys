@@ -41,10 +41,10 @@ const DetailCountry = ({ setInfoActivity, setAcivityExist, setFormModal,  setBot
                 <div className={`${countryDetail.Activities.length ? 'deatail_card2' : 'deatail_card'}`}>
                     <h1>{countryDetail.name}</h1>
                     <img className='detail_img' src={`${countryDetail.image}`} alt="image-country" />
-                    <h2>{countryDetail.capital === 'null' ? "" : countryDetail.capital}</h2>
+                    <h2>Capital: {countryDetail.capital === 'null' ? "" : countryDetail.capital}</h2>
                     <p className="detail_continent">{countryDetail.continents}</p>
                     <p className="detail_population">{formaterDinero(countryDetail.population)}</p>
-                    <p>{countryDetail.subregion === 'null' ? '' : countryDetail.subregion}</p>
+                    <p>Region: {countryDetail.subregion === 'null' ? '' : countryDetail.subregion}</p>
                 </div>
 
                 <div className='detail_info'>

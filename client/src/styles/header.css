@@ -9,7 +9,17 @@
     cursor: pointer;
   }
   
-
+.bg-header{
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  margin-bottom: 1rem;
+  height: 7rem;
+  padding-top: 2rem;
+  cursor: pointer;
+  
+}
 .text-h1 {
     text-align: center;
     color: #fff;

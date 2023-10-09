@@ -5,7 +5,10 @@ const NavBar = () => {
   const Navigate = useNavigate()
   return (
     <div className="bg-nav" onClick={() => Navigate('/')}>
-      <h1 className="text-h1">Welcome to world</h1>
+      <div className='bg-header'>
+          <h1 className="text-h1">Welcome to world</h1>
+      </div>
+     
     </div>
 
   )

@@ -18,9 +18,7 @@ const useActivities = (refreshData) => {
         getActivites()
     }, [refreshData]);
 
-  return {
-    activities
-  }
+  return { activities }
 }
 
 export default useActivities

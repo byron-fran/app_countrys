@@ -63,6 +63,12 @@
     width: 270px;
     height: 170px;
     margin: 0 auto;
+    transition-property: transform;
+    transition-duration: 300ms;
+    z-index: 2;
+  }
+  .country_image:hover{
+    transform:scale(1.2);;
   }
   @media(min-width: 768px){
     .country_image{

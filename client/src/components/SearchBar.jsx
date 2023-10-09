@@ -14,17 +14,12 @@ const SearchBar = ({ searchCountry, setSearchCountry, handleSubmit, setFormModal
         <form onSubmit={handleSubmit}>
           <div className='container_postion'>
             <div className='grid_search'>
-               <input className='input_search' value={searchCountry} type="text" placeholder='Buscar un pais' onChange={e => setSearchCountry(e.target.value)} />
+               <input className='input_search' value={searchCountry} type="text" placeholder='Buscar un pais' 
+                  onChange={e => setSearchCountry(e.target.value)} />
                 <button className='btn_search' type='submit'>Buscar</button>
             </div>
       
-              <div className='btn_absolute'>
-                {bottonFloat && (
-                  <button  className='btn_float' onClick={()=>{ 
-                    setBottoFloat(false)
-                    setFormModal(true)}}>+</button>
-                )}
-              </div>
+ 
             
           </div>
          
@@ -32,7 +27,13 @@ const SearchBar = ({ searchCountry, setSearchCountry, handleSubmit, setFormModal
       </div>
        )
     }
-
+     <div className='btn_absolute'>
+      {bottonFloat && (
+        <button  className='btn_float' onClick={()=>{ 
+          setBottoFloat(false)
+          setFormModal(true)}}>+</button>
+      )}
+    </div>
     </>
 
   )
